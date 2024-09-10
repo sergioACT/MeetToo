@@ -1,0 +1,203 @@
+<ion-content [fullscreen]="true">
+
+
+  <ion-content>
+    <ion-title class="title" size="large">Ajustes y privacidad</ion-title>
+    <ion-card>
+      <div #profile_editor class="profile-setings-card" *ngIf="user">
+        <div (click)="open_editor()" class="profile-setings-rounded">
+          <ion-avatar (click)="openModal(false,user.email)" class="profile-avatar" aria-hidden="true">
+            <img src="{{user.photo}}" alt="">
+          </ion-avatar>
+
+          <div #profile_data class="profile-text-data">
+            <ion-label class="profile-fullname">
+              {{fullname}}
+            </ion-label>
+
+            <div #profile_fullname class="profile-nickname">
+              <ion-input required="true" #txt_nickname placeholder="{{user.nick_name}} ">
+              </ion-input>
+            </div>
+
+            <ion-label [style.Display]="description_display" class="profile-description">
+              {{user.preferences}}
+            </ion-label>
+          </div>
+          <div #profile_icon class="profile-logout-icon">
+            <ion-icon (click)="log_out()" class="profile-icon" [name]="icon_name"></ion-icon>
+          </div>
+        </div>
+        <div [style.Display]="description_display_large">
+          <ion-textarea required="true" [counter]="true" maxlength="40" #txt_description style="margin-top: 10px;"
+            class="profile-description" placeholder="{{user.preferences}}">
+          </ion-textarea>
+        </div>
+        <div [style.Display]="description_display_large" class="profile_close_editor">
+          <ion-icon (click)="close_editor()" class="profile-icon" name="chevron-up-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-card>
+
+    <ion-card class="settings-card">
+      <ion-list class="list-settings" *ngIf="user" [inset]="true">
+        <ion-item lines="none">
+          <ion-label>Mostrar descripcion</ion-label>
+          <ion-toggle checked="{{user.visible_preferences}}" (ionChange)="on_checked($event,'preferences')"
+            [enableOnOffLabels]="true" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mostrar redes sociales</ion-label>
+          <ion-toggle checked="{{user.visible_media}}" (ionChange)="on_checked($event,'media')"
+            [enableOnOffLabels]="true" slot="end"></ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card class="settings-card">
+      <ion-list class="list-settings" *ngIf="user" [inset]="true">
+        <ion-item (click)="open_facebook()" [button]="true" lines="none">
+          <div class="social-media-content">
+            <div class="social-media-left">
+              <ion-icon class="setting-icon" slot="start" name="logo-facebook" size="medium"></ion-icon>
+              <ion-label>Facebook</ion-label>
+
+            </div>
+            <div class="social-media-right">
+              <ion-label>{{user.social_media[0].facebook}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item [button]="true" lines="none">
+          <div class="social-media-content">
+            <div class="social-media-left">
+              <ion-icon class="setting-icon" slot="start" name="logo-instagram" size="medium"></ion-icon>
+              <ion-label>Instagram</ion-label>
+
+            </div>
+            <div class="social-media-right">
+              <ion-label>{{user.social_media[0].instagram}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item [button]="true" lines="none">
+          <div class="social-media-content">
+            <div class="social-media-left">
+              <ion-icon class="setting-icon" slot="start" name="logo-x" size="medium"></ion-icon>
+              <ion-label>Twitter / X</ion-label>
+
+            </div>
+            <div class="social-media-right">
+              <ion-label>{{user.social_media[0].x}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item [button]="true" lines="none">
+          <div class="social-media-content">
+            <div class="social-media-left">
+              <ion-icon class="setting-icon" slot="start" name="logo-whatsapp" size="medium"></ion-icon>
+              <ion-label>WhatsApp</ion-label>
+
+            </div>
+            <div class="social-media-right">
+              <ion-label>{{user.social_media[0].whatsapp}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item [button]="true" lines="none">
+          <div class="social-media-content">
+            <div class="social-media-left">
+              <ion-icon class="setting-icon" slot="start" name="call" size="medium"></ion-icon>
+              <ion-label>Telefono</ion-label>
+
+            </div>
+            <div class="social-media-right">
+              <ion-label>{{user.social_media[0].whatsapp}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </ion-content>
+
+
+  <ion-modal class="modal-photo" #image_modal [canDismiss]="canDismiss" [presentingElement]="presentingElement">
+    <ng-template class="ion-padding">
+
+      <ion-content class="modal-body">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <ion-icon class="header-icon" name="chevron-back-outline" (click)="image_modal.dismiss()"></ion-icon>
+            <ion-label class="header-text">Foto del perfil</ion-label>
+            <ion-label class="header-text" (click)="open_modal()">Editar</ion-label>
+
+          </div>
+          <img src="{{modal_photo}}" alt="">
+          <div class="modal-header">
+            <ion-icon class="header-icon" name="share-social-outline"></ion-icon>
+          </div>
+          <!-- <ion-action-sheet #action_sheet [buttons]="actionSheetButtons"></ion-action-sheet> -->
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal class="photo-modal" #upload_photo_modal [canDismiss]="canDismiss" [initialBreakpoint]="0.40"
+    [breakpoints]="[0, 0.40]" handleBehavior="cycle">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="upload-image-modal">
+          <div class="image-modal-header">
+            <div class="image-text-header">
+              <div>
+                <img class="mini-modal-image" src="{{modal_photo}}" alt="">
+              </div>
+              <div class="text-header">
+                <ion-label>Editar foto de perfil</ion-label>
+              </div>
+            </div>
+            <div class="icon-header" (click)="upload_photo_modal.dismiss()">
+              <ion-icon name="close-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="image-modal-content">
+            <ion-list color="balck" class="list-header" [inset]="true">
+              <ion-item (click)="open_camera()" class="item-header">
+                <ion-label>Tomar foto</ion-label>
+                <ion-icon class="item-header" name="camera-outline"></ion-icon>
+              </ion-item>
+              <ion-item (click)="open_gallery()" class="item-header">
+                <ion-label>Seleccionar foto</ion-label>
+                <ion-icon class="item-header" name="image-outline"></ion-icon>
+              </ion-item>
+              <ion-item class="item-header">
+                <ion-label class="item-header" (click)="present_action_sheet()">Eliminar foto</ion-label>
+                <ion-icon class="item-header" name="trash-outline"></ion-icon> </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-modal class="modal-photo" #new_photo_modal [canDismiss]="canDismiss" [presentingElement]="presentingElement">
+    <ng-template class="ion-padding">
+
+      <ion-content class="modal-body">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <ion-label class="header-text">Foto del perfil</ion-label>
+          </div>
+          <img src="{{new_photo}}" alt="">
+          <div class="modal-header">
+            <ion-label (click)="new_photo_modal.dismiss()">Cancelar</ion-label>
+            <ion-label (click)="save_photo()">Seleccionar</ion-label>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,194 @@
+@import "../../global.scss";
+
+.register-content {
+    margin: 10%;
+    width: 80vw;
+}
+
+.register-content-b {
+    margin: 10%;
+    width: 80vw;
+}
+
+.register-input {
+    margin: 10px 10px 0px 0px;
+}
+
+.register-top {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-color: $primary-color;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all .3s linear;
+    height: 30vh;
+
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    border: 1px solid white;
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    color: white;
+    background-color: transparent;
+}
+
+.input:focus {
+    outline: none;
+}
+
+
+
+.input:focus-within {
+    border: 1.5px solid $strong-color;
+    color: $strong-color;
+}
+
+.register-top-size {
+    height: 100%;
+    width: 100vw;
+    transition: all .3s linear;
+}
+
+.register-img {
+    width: 20%;
+}
+
+.full-screen {
+    background-color: #121212;
+}
+
+.register-footer-s {
+    padding-top: 15px;
+    text-align: end;
+}
+
+.register-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding-top: 15px;
+    text-align: start;
+}
+
+.register-option {
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-button {
+    color: $strong-color;
+}
+
+.register-profile-image {
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+.register-checkbox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+.register-textaera {
+    height: 20%;
+}
+
+.login-back {
+    margin-top: 10px;
+    color: #121212;
+}
+
+.login-back {
+    margin-top: 10px;
+    color: #121212;
+}
+
+.option-button {
+    color: white;
+    --border-color: white;
+    width: 100%;
+    text-justify: inter-word;
+}
+
+.login-button-start {
+    color: $primary-color;
+    --border-color: white;
+    background-color: white;
+    width: 100%;
+    border-radius: 50px;
+    text-justify: inter-word;
+}
+
+.login-card {
+    padding: 10px;
+
+}
+
+.login-button {
+    width: 100%;
+    text-justify: inter-word;
+    color: $strong-color;
+    --border-color: $strong-color;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 20px;
+}
+
+.normal-login {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+hr {
+    font-size: xx-small;
+    border: none;
+    border-top: 1px solid $primary-color;
+    color: $primary-color;
+    overflow: visible;
+    text-align: center;
+    height: 2px;
+}
+
+hr::after {
+    background-color: white;
+    content: "inicia con correo y contraseña";
+    padding: 0px 6px;
+    position: relative;
+    top: -6px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 20px;
+
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.register-top {
+    background-color: hsla(172, 0%, 100%, 1);
+    background-image: radial-gradient(circle at 1% 2%, hsla(249, 76%, 61%, 0.59) 7%, transparent 84%), radial-gradient(circle at 95% 96%, hsla(271, 98%, 53%, 0.24) 7%, transparent 84%), radial-gradient(circle at 2% 98%, hsla(296, 100%, 51%, 0.25) 7%, transparent 84%);
+    background-blend-mode: normal, normal, normal;
+}

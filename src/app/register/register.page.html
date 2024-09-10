@@ -1,0 +1,89 @@
+<ion-content scroll-y="false" #content [fullscreen]="true">
+  <ion-header>
+    <ion-progress-bar [style.Display]="isVisible" #progress type="indeterminate"></ion-progress-bar>
+
+  </ion-header>
+  <div #top class="register-top register-top-size">
+
+    <div class="logo-section">
+      <div class="logo">
+        <img src="./../../assets/images/meettoo-logo.png" aria-hidden="true" style="color: #6305dc;" class="register-img" name="footsteps"/>
+      </div>
+      <ion-title><b style="color: #6305dc;">meet</b><b style="color: white;">too</b></ion-title>
+    </div>
+
+    <div class="register-option" [style.display]="display">
+      <ion-button class="login-button-start" fill="outline" shape="round" (click)="login_option(true)">Iniciar
+        sesión</ion-button>
+      <ion-button class="option-button" fill="outline" shape="round" (click)="register_option(true)">Crear
+        cuenta</ion-button>
+    </div>
+    <div class="register-option" [style.display]="login_display">
+
+      <div class="login-card">
+        <ion-card-header style="display: none;">
+          <ion-card-subtitle>Ingresa con alguna red social</ion-card-subtitle>
+        </ion-card-header>
+        <div style="display: none;" class="social-login">
+          <ion-icon name="logo-google" size="large"></ion-icon>
+          <ion-icon name="logo-facebook" size="large"></ion-icon>
+          <ion-icon name="logo-x" size="large"></ion-icon>
+        </div>
+        <div class="normal-login">
+
+
+          <input class="input" #login_email name="user" type="text" required placeholder="Usuario"/>
+          <br />
+          <input class="input" #login_password name="password" type="password" required
+            placeholder="Contraseña"/>
+
+          <ion-button class="login-button" fill="outline" shape="round" (click)="login()">Iniciar sesión</ion-button>
+
+        </div>
+
+      </div>
+      <div class="text-options">
+        <ion-label class="login-back" (click)="login_option(false)"> ¿Olvidaste tu contraseña?</ion-label>
+        <br>
+        <br>
+        <ion-label class="login-back">Aun no tienes una cuenta? 
+          <u (click)="login_option(false)" style="color: white;">registrarse</u></ion-label>
+      </div>
+
+    </div>
+  </div>
+
+
+  <ion-content scroll-y="false">
+    <div #step1 class="register-content">
+      <ion-input #first_name class="register-input" label="Nombre" label-placement="floating" fill="outline"
+        placeholder="frist name"></ion-input>
+      <ion-input #last_name class="register-input" label="Apellido" label-placement="floating" fill="outline"
+        placeholder="last name"></ion-input>
+      <ion-input #email class="register-input" label="Email" label-placement="floating" fill="outline" type="email"
+        placeholder="email"></ion-input>
+      <ion-input #password class="register-input" label="Contraseña" label-placement="floating" fill="outline"
+        type="password" placeholder="password"></ion-input>
+      <ion-input #number class="register-input" label="Telefono" label-placement="floating" fill="outline" type="numeric"
+        placeholder="number"></ion-input>
+      <div class="register-footer">
+        <ion-label class="register-button" fill="clear" (click)="register_option(false)">Atras</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="step(true)">Siguiente</ion-label>
+      </div>
+    </div>
+  </ion-content>
+
+  <ion-content scroll-y="false">
+    <div #step2 class="register-content-b disbaled-content">
+      <ion-textarea #description rows="5" class="register-textaera" label="DEscripción" label-placement="floating"
+        fill="outline" type="descripcion" placeholder="talk about you"></ion-textarea>
+      <ion-checkbox #visible_description class="register-checkbox">Quiero mostrar mi descripción</ion-checkbox>
+      <div class="register-footer">
+        <ion-label class="register-button" fill="clear" (click)="step(false)">Atras</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="confirm()">Siguiente</ion-label>
+      </div>
+    </div>
+  </ion-content>
+  <ion-toast #login_toast trigger="open-toast" message="El usuario o la contraseña son incorrectos"
+    [duration]="5000"></ion-toast>
+</ion-content>

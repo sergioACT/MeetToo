@@ -1,0 +1,15 @@
+@import "../../global.scss";
+
+.tab-bar {
+    border: none;
+    --color: #b39bd8;
+}
+
+.tab-button {
+    background-color: transparent;
+}
+
+.tab-selected {
+    color: $strong-color;
+}
+

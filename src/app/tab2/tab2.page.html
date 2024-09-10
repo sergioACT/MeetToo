@@ -1,0 +1,66 @@
+<ion-content style="height: 100vh;" [fullscreen]="true">
+  <div>
+    <ion-title class="title" size="large">Descubrir</ion-title>
+    <div class="content" #content_card [style.Height]="height">
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">MeetToo</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+
+
+      <div class="container-cards ">
+        <div  #status_card class="status">
+          <div *ngIf="recent_user" class="card-status">
+            <div class="card-status-header">
+              <div class="accept-img">
+                <div class="content-img">
+                  <img style="height: 130px; max-width: 130px; border-radius: 50%;" src="{{recent_user.photo}}" alt="">
+                </div>
+              </div>
+
+            </div>
+            <div class="card-status-data">
+              <h1 class="card-status-name">{{recent_user.nick_name}}</h1>
+              <label>{{recent_full_name}}</label>
+              <h4><b style="color: #6305dc;">!Hey¡</b>. has aceptado la conexión con <b
+                  style="color: #6305dc;">{{recent_user.nick_name}}</b>.</h4>
+              <label style="font-size: small; text-align: justify;">
+                <b>Recuerda que no podras enviarle mensajes hasta que
+                  *pronombres* acepte la conexión contigo.</b></label>
+              <br>
+              <label style="font-size: small;">
+                Por lo pronto puedes ver sus redes sociales y conocer un poco mas de como es
+                en ellas.
+              </label>
+            </div>
+            <div class="card-status-actions">
+              <ion-button >Aceptar</ion-button>
+              <ion-button color="dark">Cancelar</ion-button>
+            </div>
+          </div>
+        </div>
+        <div #recent_card>
+          <ion-card [style.BackgroundImage]="recent_photo" class="card">
+            <div class="card-container" *ngIf="recent_user">
+              <ion-card-header class="card-header">
+                <ion-card-title class="card-name">{{recent_user.nick_name}}</ion-card-title>
+                <ion-card-subtitle style="color:  white;">{{recent_full_name}}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{recent_user.preferences}}
+              </ion-card-content>
+
+            </div>
+
+          </ion-card>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

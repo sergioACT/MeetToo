@@ -1,0 +1,7 @@
+{
+  "name": "MeetTooV2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

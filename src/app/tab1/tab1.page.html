@@ -1,0 +1,63 @@
+
+<ion-content class="comp" [fullscreen]="true">
+  <ion-title class="title" size="large">Amigos</ion-title>
+
+<div>
+  <ion-searchbar color="light" (ionInput)="search($event)" class="firends-search"></ion-searchbar>
+
+  <div class="recent-friends-card">
+    <div class="recent-avatars">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="recent-col" *ngFor="let meet of actual_meetings">
+            <ion-avatar (click)="open_recent(meet.id)" class="recent-avatar" aria-hidden="true">
+              <img src="{{meet.photo}}" alt="">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="friend-list">
+    <ion-list>
+      <ion-item *ngFor="let friend of friends" lines="none">
+        <ion-avatar aria-hidden="true" slot="start">
+          <img  [src]="friend.photo ? friend.photo : './assets/images/no-user.png'" class="image-profile" />
+        </ion-avatar>
+        <div class="friend-data">
+          <ion-label id="friend-name" class="friend-name">{{friend.first_name}}</ion-label>
+          <ion-label *ngIf="friend.visible_preferences" id="friend-description"
+            class="friend-description">{{friend.preferences}}</ion-label>
+        </div>
+        <div class="friend-icons">
+          <ion-icon (click)="openModal(true,friend.email)" class="chat-icon" name="chatbubbles-outline"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+  <ion-modal class="modal-chat" #social_modal  [initialBreakpoint]="0.20" [breakpoints]="[0, 0.20]"
+    handleBehavior="cycle">
+    <ng-template>
+      <ion-content [style.Display]="friend_visble_media" class="ion-padding">
+        <div class="modal-chat-header">
+          hablar por
+        </div>
+        <div class="chat-icons">
+          <ion-icon class="friend-icon" size="large" name="logo-facebook" (click)="open_app(link_f,'fb')"></ion-icon>
+          <ion-icon class="friend-icon" size="large" name="logo-instagram" (click)="open_app(link_i,'ig')"></ion-icon>
+          <ion-icon class="friend-icon" size="large" name="logo-x" (click)="open_app(link_x,'x')"></ion-icon>
+          <ion-icon class="friend-icon" size="large" name="logo-whatsapp" (click)="open_app(link_w,'wh')"></ion-icon>
+          <ion-icon class="friend-icon" size="large" name="call" (click)="open_app(link_p,'ph')"></ion-icon>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  
+</div>
+
+
+</ion-content>

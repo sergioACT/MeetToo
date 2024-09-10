@@ -1,0 +1,18 @@
+<ion-tabs #tabs>
+
+  <ion-tab-bar class="tab-bar" slot="bottom">
+    <ion-tab-button class="tab-button" tab="tab1"  (click)="tab2(1)" href="/tabs/tab1">
+      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab1_icon_name}}"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button class="tab-button" tab="tab2" href="/tabs/tab2" (click)="tab2(2)">
+      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab2_icon_name}}" ></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button class="tab-button" tab="tab3" href="/tabs/tab3" (click)="tab2(3)">
+      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab3_icon_name}}" ></ion-icon>
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+
+</ion-tabs>

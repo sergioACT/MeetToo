@@ -1,0 +1,72 @@
+@import "../../global.scss";
+
+.friend-avatar{
+    --border-radius: 0;
+    width: 25vw;
+}
+.recent-avatars
+{
+    margin-top: 5px;
+}
+.friend-icons{
+    position: fixed;
+    right: 0;
+}
+.friend-icon{
+    margin: 10px;
+}
+.chat-icons{
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+    color: #6305dc;
+    text-align: center;
+}
+.chat-icon{
+    font-size: 20px;
+    margin: 10px;
+    color: gray;
+}
+
+.friend-data {
+    width: 50vw;
+}
+.friend-name{
+    text-transform: capitalize;
+
+}
+.friend-description {
+    color: gray;
+    padding: 3px 3px 3px 0px;
+    font-size: x-small;
+}
+
+.recent-friends-card{
+    padding: 10px;
+}
+
+.image-profile{
+    background-size: cover;
+    
+}
+
+.recent-col{
+    flex-grow: 0;
+}
+.firends-search{
+    padding-top: 0;
+    --box-shadow: none;
+}
+
+.modal-chat{
+    --ion-background-color: #f6f6f6;
+}
+
+.modal-chat-header{
+    justify-content: center;
+    display: flex;
+    margin: 2px;
+    font-size: small;
+}
+
