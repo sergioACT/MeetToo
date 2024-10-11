@@ -1,6 +1,7 @@
 .content {
   display: flex;
   justify-content: space-around;
+
 }
 
 #container {
@@ -29,6 +30,9 @@
 }
 
 .container-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   width: 95%;
 }
 
@@ -36,11 +40,12 @@
   position: relative;
   margin-bottom: 0;
   box-shadow: inset 0 -70px 100px -10px #000000;
-  height: 77vh;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
   margin-top: 0;
+--overflow: hidden;
 }
 
 .green-card {
@@ -48,26 +53,50 @@
   // transition: transform 4.0s ease;
   // background: rgb(33,187,33);
   // background: linear-gradient(90deg, rgba(33,187,33,1) 0%, rgba(0,0,0,1) 100%);
-  box-shadow: inset 113px 0px 107px -20px rgba(99,5,220,1);
 
 }
 
+.card-action-buttons {
+  height: 15%;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.button-card {
+  background-color: rgb(255, 255, 255);
+  border-radius: 100%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: x-large;
+  box-shadow: 0px 10px 16px -3px rgba(0, 0, 0, 0.1);
+}
+
+.dislike {
+  color: black;
+}
+
+.latter {
+  color: rgb(0, 0, 0);
+}
+
+.like {
+  color: #6305dc;
+}
 
 .red-card {
   // transform: rotate(-45deg);
   // transition: transform 1.0s ease;
   // background: rgb(0,0,0);
   //  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(249,44,44,1) 100%); 
-  box-shadow: inset -113px 0px 107px -20px rgb(0, 0, 0);
 
-}
-
-.accept {
-  background-color: rgba(33, 187, 33, 1);
-}
-
-.reject {
-  background-color: rgba(249, 44, 44, 1);
 }
 
 .title-content {
@@ -81,11 +110,21 @@
   display: none;
 }
 
+.card-title {
+  height: 10%;
+}
+
+.card-content {
+  height: 85%;
+  padding-top: 10%;
+}
+
+
 .status-card {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 77vh;
+  height: 100%;
 }
 
 .card-container,
@@ -100,29 +139,65 @@
   font-weight: bold;
 }
 
+.card-baded {
+  border: 5px solid;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: xxx-large;
+  position: absolute;
+  margin-top: 40px;
+}
+
+.no{
+  color: red;
+  margin-right: 10px;
+  rotate: 30deg;
+  opacity: 0%;
+  right: 0;
+}
+
+.yes{
+  color: green;
+  margin-left: 10px;
+  rotate: -30deg;
+  left: 0;
+  opacity: 0%;
+}
+
+.card_final{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  z-index: -1;
+}
 .card-status-name {
   text-transform: capitalize;
   font-weight: bold;
 }
 
-.card-status{
+.card-status {
   display: flex;
   flex-direction: column;
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
+  height: 100%;
+  justify-content: space-around;
 }
 
-.card-status-header{
+.card-status-header {
   display: flex;
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
-.card-status-actions{
+.card-status-actions {
   margin-top: 30px;
   display: flex;
   justify-content: space-evenly;
 }
+
 .accept-img {
   display: flex;
   flex-direction: column;
@@ -135,8 +210,9 @@
   // background: rgb(247,247,247);
   // background: radial-gradient(circle, rgba(247,247,247,1) 33%, rgba(174,227,211,1) 66%, rgba(33,187,33,1) 100%, rgba(33,70,187,1) 100%, rgba(33,181,187,1) 100%);
 
-  background: rgb(247,247,247);
-  background: radial-gradient(circle, rgba(247,247,247,1) 33%, rgba(179,155,216,1) 74%, rgba(141,85,227,1) 100%, rgba(99,5,220,1) 100%);}
+  background: rgb(247, 247, 247);
+  background: radial-gradient(circle, rgba(247, 247, 247, 1) 33%, rgba(179, 155, 216, 1) 74%, rgba(141, 85, 227, 1) 100%, rgba(99, 5, 220, 1) 100%);
+}
 
 //accept page
 .content-img {

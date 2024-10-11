@@ -31,7 +31,7 @@ export class Gestures {
                 gestureName: 'drag',
                 onStart: ev => this.onDragStart(ev),
                 onMove: ev => this.onDragMove(ev),
-                onEnd: ev => this.onDragEnd(ev)
+                onEnd: ev =>  this.onDragEnd(ev)
             });
 
             gesture.enable();

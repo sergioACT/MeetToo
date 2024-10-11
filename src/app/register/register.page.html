@@ -1,15 +1,13 @@
 <ion-content scroll-y="false" #content [fullscreen]="true">
-  <ion-header>
-    <ion-progress-bar [style.Display]="isVisible" #progress type="indeterminate"></ion-progress-bar>
-
-  </ion-header>
+  
   <div #top class="register-top register-top-size">
 
-    <div class="logo-section">
+    <div class="logo-section safe-area" style="padding-top: 10%;">
       <div class="logo">
-        <img src="./../../assets/images/meettoo-logo.png" aria-hidden="true" style="color: #6305dc;" class="register-img" name="footsteps"/>
+        <img src="./../../assets/images/meettoo-logo.png" aria-hidden="true" style="color: #6305dc;"
+          class="register-img" name="footsteps" />
       </div>
-      <ion-title><b style="color: #6305dc;">meet</b><b style="color: white;">too</b></ion-title>
+      <h5><b style="color: #6305dc;">meet</b><b style="color: white;">too</b></h5>
     </div>
 
     <div class="register-option" [style.display]="display">
@@ -32,10 +30,9 @@
         <div class="normal-login">
 
 
-          <input class="input" #login_email name="user" type="text" required placeholder="Usuario"/>
+          <input class="input" #login_email name="user" type="text" required placeholder="Usuario" />
           <br />
-          <input class="input" #login_password name="password" type="password" required
-            placeholder="Contraseña"/>
+          <input class="input" #login_password name="password" type="password" required placeholder="Contraseña" />
 
           <ion-button class="login-button" fill="outline" shape="round" (click)="login()">Iniciar sesión</ion-button>
 
@@ -46,44 +43,84 @@
         <ion-label class="login-back" (click)="login_option(false)"> ¿Olvidaste tu contraseña?</ion-label>
         <br>
         <br>
-        <ion-label class="login-back">Aun no tienes una cuenta? 
+        <ion-label class="login-back">Aun no tienes una cuenta?
           <u (click)="login_option(false)" style="color: white;">registrarse</u></ion-label>
       </div>
 
     </div>
   </div>
 
-
-  <ion-content scroll-y="false">
-    <div #step1 class="register-content">
-      <ion-input #first_name class="register-input" label="Nombre" label-placement="floating" fill="outline"
-        placeholder="frist name"></ion-input>
-      <ion-input #last_name class="register-input" label="Apellido" label-placement="floating" fill="outline"
-        placeholder="last name"></ion-input>
-      <ion-input #email class="register-input" label="Email" label-placement="floating" fill="outline" type="email"
-        placeholder="email"></ion-input>
-      <ion-input #password class="register-input" label="Contraseña" label-placement="floating" fill="outline"
-        type="password" placeholder="password"></ion-input>
-      <ion-input #number class="register-input" label="Telefono" label-placement="floating" fill="outline" type="numeric"
-        placeholder="number"></ion-input>
+  <div style="display: flex; flex-direction: row; width: 1552px; " >
+    <div #step1 class="register-content ">
+      <div>
+        <ion-input #email class="register-input" label="Email" label-placement="floating" fill="outline" type="email"
+          placeholder="email"></ion-input>
+        <ion-input #password class="register-input" label="Contraseña" label-placement="floating" fill="outline"
+          type="password" placeholder="password"></ion-input>
+  
+  
+      </div>
       <div class="register-footer">
         <ion-label class="register-button" fill="clear" (click)="register_option(false)">Atras</ion-label>
-        <ion-label class="register-button" fill="clear" (click)="step(true)">Siguiente</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="next(1)">Siguiente</ion-label>
       </div>
     </div>
-  </ion-content>
-
-  <ion-content scroll-y="false">
-    <div #step2 class="register-content-b disbaled-content">
-      <ion-textarea #description rows="5" class="register-textaera" label="DEscripción" label-placement="floating"
-        fill="outline" type="descripcion" placeholder="talk about you"></ion-textarea>
-      <ion-checkbox #visible_description class="register-checkbox">Quiero mostrar mi descripción</ion-checkbox>
+  
+    <!-- <ion-content scroll-y="false"> -->
+    <div #step2 class="register-content-b">
+      <div >
+        <ion-input #first_name class="register-input" label="Nombre" label-placement="floating" fill="outline"
+          placeholder="frist name"></ion-input>
+        <ion-input #last_name class="register-input" label="Apellido" label-placement="floating" fill="outline"
+          placeholder="last name"></ion-input>
+        <ion-input #number class="register-input" label="Telefono" label-placement="floating" fill="outline"
+          type="numeric" placeholder="number"></ion-input>
+      </div>
       <div class="register-footer">
-        <ion-label class="register-button" fill="clear" (click)="step(false)">Atras</ion-label>
-        <ion-label class="register-button" fill="clear" (click)="confirm()">Siguiente</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="back(2)">Atras</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="next(2)">Siguiente</ion-label>
       </div>
     </div>
-  </ion-content>
-  <ion-toast #login_toast trigger="open-toast" message="El usuario o la contraseña son incorrectos"
-    [duration]="5000"></ion-toast>
+    <!-- </ion-content> -->
+  
+    <div #step3 class="register-content-b">
+      <div>
+        <div class="date-picker" >
+          <ion-input #day class="register-input" label="Dia" label-placement="floating" fill="outline"
+                placeholder="day"></ion-input>
+              <ion-input #month class="register-input" type="number" label="Mes" label-placement="floating" fill="outline"
+                placeholder="month"></ion-input>
+              <ion-input #year class="register-input" label="Año" label-placement="floating" fill="outline"
+                type="numeric" placeholder="year"></ion-input>
+        </div>
+      </div>
+      <div class="register-footer">
+        <ion-label class="register-button" fill="clear" (click)="back(3)">Atras</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="next(3)">Siguiente</ion-label>
+      </div>
+    </div>
+  
+    <div #step4 class="register-content-b">
+      <div>
+        <ion-input #nick_name class="register-input" label="Apodo" label-placement="floating" fill="outline"
+          placeholder="nick name"></ion-input>
+        <ion-textarea #description rows="15" class="register-textaera" label="Descripción" label-placement="floating"
+          fill="outline" type="descripcion" placeholder="talk about you"></ion-textarea>
+        <ion-checkbox #visible_description class="register-checkbox">Quiero mostrar mi descripción</ion-checkbox>
+      </div>
+      <div>
+        <div class="terms">
+          <ion-checkbox required="true" #terms_and_conditions class="register-checkbox">Acepto terminos y
+            condiciones.</ion-checkbox>
+  
+        </div>
+        <div class="register-footer">
+          <ion-label class="register-button" fill="clear" (click)="back(4)">Atras</ion-label>
+          <ion-label class="register-button" fill="clear" (click)="confirm()">Siguiente</ion-label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </ion-content>

@@ -9,6 +9,10 @@ const config: CapacitorConfig = {
       appId: "1422381325105012",
       permissions: ["email", "public_profile"]
     }
+  },
+  server: {
+    url: 'https://meettoo-cb9c9.web.app/register', // Cambia esta URL si es necesario
+    cleartext: true
   }
 };
 

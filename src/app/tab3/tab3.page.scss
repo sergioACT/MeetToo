@@ -49,6 +49,7 @@
 .profile-setings-rounded {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 
@@ -167,16 +168,10 @@
     margin: 0;
 }
 
-.social-media-left {
+.social-media {
     display: flex;
-    flex-direction: row;
-    justify-content: left;
-}
-
-.social-media-right {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .social-media-content {
@@ -184,4 +179,21 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.social-media-left{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: left;
+}
+
+.version-content{
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    color: #bababa;
+    padding: 10px;
 }

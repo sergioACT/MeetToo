@@ -1,13 +1,49 @@
 @import "../../global.scss";
 
+ion-checkbox{
+    display: flex;
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    border: 1px solid white;
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 15px;
+    color: white;
+    background-color: transparent;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.date-picker{
+    display: flex;
+}
+
+.input:focus-within {
+    border: 1.5px solid $strong-color;
+    color: $strong-color;
+}
 .register-content {
-    margin: 10%;
-    width: 80vw;
+    padding: 30px;
+    width: 388px;
+    min-height: 70vh; /* Cambia de height a min-height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .register-content-b {
-    margin: 10%;
-    width: 80vw;
+    padding: 30px;
+    width: 388px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .register-input {
@@ -27,33 +63,17 @@
 
 }
 
-.input {
-    width: 100%;
-    margin-bottom: 10px;
-    border-radius: 25px;
-    border: 1px solid white;
-    outline: 0 !important;
-    box-sizing: border-box;
-    padding: 10px 15px;
-    color: white;
-    background-color: transparent;
-}
-
-.input:focus {
-    outline: none;
-}
 
 
 
-.input:focus-within {
-    border: 1.5px solid $strong-color;
-    color: $strong-color;
-}
 
 .register-top-size {
     height: 100%;
     width: 100vw;
     transition: all .3s linear;
+    padding-top: 10%;
+    padding-bottom: 10%;
+
 }
 
 .register-img {

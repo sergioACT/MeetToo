@@ -1,10 +1,15 @@
 import { Component, ElementRef, ViewChild, } from '@angular/core';
 import { Connection } from 'src/scripts/connection';
-import { Gesture, GestureController, IonContent, IonIcon, IonInput, IonModal, IonTabs, IonTextarea, IonToggle, ModalController } from '@ionic/angular';
+import { Gesture, GestureController, IonContent, IonIcon, IonInput, IonModal, IonTabs, IonTextarea, IonToggle, ModalController, ToastController } from '@ionic/angular';
 import { Router, Event } from '@angular/router';
-import { User } from '../../interfaces/user';
+import { IUser } from '../../interfaces/iuser';
 import { Meetings } from '../../interfaces/meetings';
-import { Buttons } from 'src/scripts/buttons';
+import { UIActions } from 'src/scripts/uiactions';
+import { Session } from 'src/scripts/sesson';
+import { User } from 'src/scripts/user';
+import { Geolocations } from 'src/scripts/geolocation';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -12,25 +17,31 @@ import { Buttons } from 'src/scripts/buttons';
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
+
 export class TabsPage {
-  user?: User;
+  session: Session;
+  user?: IUser;
   fullname: String = "";
-  friends?: Array<User>;
-  all_friends?: Array<User>;
+  friends?: Array<IUser>;
+  all_friends?: Array<IUser>;
   meetings?: Meetings;
-  actual_meetings?: Array<User>;
+  actual_meetings?: Array<IUser>;
   connection: Connection;
   router: Router;
-  buttons?: Buttons;
+  ui_actions?: UIActions;
+  usr: User | undefined;
+user_meet: any;
+geolocation?: Geolocations;
+
+
   description_display = 'block'
   logout_button_display = 'flex'
   description_display_large = 'none'
   icon_name = 'log-in-outline';
   tab1_icon_name = 'people-outline';
   tab2_icon_name = 'footsteps-outline';
-  tab3_icon_name = 'settings-outline';
-
-  friend_visble_media: string = 'none';
+  tab3_icon_name = 'accessibility-outline';
+  friend_visble_media = 'none';
 
 
   is_open = false;
@@ -55,38 +66,43 @@ export class TabsPage {
   @ViewChild('profile_fullname') profile_fullname?: ElementRef;
   @ViewChild('txt_nickname') txt_nickname?: IonInput;
   @ViewChild('txt_description') txt_description?: IonTextarea;
-
-  @ViewChild('tabs', { static: false }) tabs?: IonTabs;
+  @ViewChild('tabs', { static: false }) tabs?: ElementRef;
   //[END] UI Components
 
-  constructor(router: Router) {
+  constructor(private toastController: ToastController,router: Router, geolocation: Geolocations) {
+    this.geolocation = geolocation;
+    this.session = new Session('log_user');
     this.router = router;
     this.connection = new Connection();
-    this.buttons = new Buttons();
-    var user_session = sessionStorage.getItem('log_user');
+    this.ui_actions = new UIActions();
+    var user_session = this.session.get();
     if (user_session == null)
       return;
 
-    this.user = JSON.parse(user_session) as User;
+    this.user = JSON.parse(user_session) as IUser;
+
+    if (!this.user)
+      return;
     if (this.user.photo == undefined)
       this.user.photo = './assets/images/no-user.png'
+
+    this.usr = new User(this.user);
+    this.usr.connection = this.connection;
+
   }
 
   async ngOnInit() {
-    if (this.user != undefined) {
-      this.fullname = this.user.first_name + " " + this.user.last_name;
+    if (this.user && this.usr) {
+      this.fullname = this.usr.get_full_name();
+      this.all_friends = await this.usr.get_friends();
+      this.friends = this.all_friends;
+      this.usr.firends = this.all_friends;
+      this.actual_meetings = await this.usr.get_meetings();
 
-      if (this.user != null) {
-
-        this.all_friends = await this.connection.getDocs('users', this.user?.friends) as Array<User>;
-        this.friends = this.all_friends;
-
-        this.meetings = await this.connection.getDoc('meetings', 'EwZZDmivXdau5vL635jG') as Meetings;
-        let meets_ids = this.meetings.data.map(x => x.id_user);
-        this.actual_meetings = await this.connection.getDocs('users', meets_ids) as Array<User>;
-      }
     }
   }
+
+
 
   on_checked(event: CustomEvent, tag: string) {
     if (this.user != null) {
@@ -98,10 +114,10 @@ export class TabsPage {
           this.user.visible_preferences = event.detail.checked;
           break;
       }
-    }
 
-    this.connection.updateDoc('users', 'EwZZDmivXdau5vL635jG', this.user);
-    sessionStorage.setItem('log_user', JSON.stringify(this.user));
+      this.connection.updateDoc('users', this.user?.id.toString(), this.user);
+      this.session.update(this.user);
+    }
   }
 
   log_out() {
@@ -121,13 +137,13 @@ export class TabsPage {
           this.txt_description.placeholder = this.txt_description.value?.toString();
           this.txt_description.value = '';
         }
+
+        this.connection.updateDoc('users', this.user.id.toString(), this.user);
+        this.session.update(this.user);
+        this.icon_name = 'bookmark';
       }
-      this.connection.updateDoc('users', 'EwZZDmivXdau5vL635jG', this.user);
-      sessionStorage.setItem('log_user', JSON.stringify(this.user));
-      this.icon_name = 'bookmark';
+
     }
-
-
   }
 
   openModal(is_media: boolean, id?: String) {
@@ -164,13 +180,11 @@ export class TabsPage {
   }
 
   open_editor() {
-    console.log('Card clickeado')
-
-    this.buttons?.open_editor(this);
+    this.ui_actions?.open_editor(this);
   }
 
   close_editor() {
-    this.buttons?.close_editor(this);
+    this.ui_actions?.close_editor(this);
   }
 
   search(event: any) {
@@ -178,27 +192,6 @@ export class TabsPage {
       this.friends = this.all_friends;
     if (this.all_friends != null)
       this.friends = this.all_friends.filter(x => x.first_name.toLowerCase().includes(event.target.value));
-  }
-
-  tab2(page: number) {
-    switch (page) {
-      case 1:
-        this.tab1_icon_name = 'people';
-        this.tab2_icon_name = 'footsteps-outline';
-        this.tab3_icon_name = 'settings-outline';
-        break;
-      case 2:
-        this.tab1_icon_name = 'people-outline';
-        this.tab2_icon_name = 'footsteps';
-        this.tab3_icon_name = 'settings-outline';
-        break;
-      case 3:
-        this.tab1_icon_name = 'people-outline';
-        this.tab2_icon_name = 'footsteps-outline';
-        this.tab3_icon_name = 'settings';
-        break;
-    }
-
   }
 
 }

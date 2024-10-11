@@ -2,17 +2,21 @@ import { ElementRef } from "@angular/core";
 import { Gestures } from "./gestures";
 import { Gesture, GestureController, GestureDetail } from "@ionic/angular";
 import { arrayRemove } from "firebase/firestore";
+import { Tab2Page } from "src/app/tab2/tab2.page";
 
 export class CardGesture extends Gestures {
 
-    content: ElementRef;
     status_card: ElementRef;
+    yes_element: ElementRef;
+    no_element: ElementRef;
+    card_buttons: ElementRef;
 
-
-    constructor(content: ElementRef, element: ElementRef, status_card: ElementRef, gestureCtrl: GestureController, screen_size: number, allow_deltaX?: boolean, allow_deltaY?: boolean) {
+    constructor(private tabPage: Tab2Page,card_buttons: ElementRef, element: ElementRef, status_card: ElementRef, gestureCtrl: GestureController, yes_element: ElementRef, no_element: ElementRef, screen_size: number, allow_deltaX?: boolean, allow_deltaY?: boolean) {
         super(element, gestureCtrl, screen_size, allow_deltaX, allow_deltaY);
-        this.content = content;
         this.status_card = status_card;
+        this.yes_element = yes_element;
+        this.no_element = no_element;
+        this.card_buttons = card_buttons;
     }
 
     override onDragStart(ev: GestureDetail) {
@@ -43,24 +47,28 @@ export class CardGesture extends Gestures {
 
         let deg = deltaX / 10;
 
+        let opcaity = deltaX * 0.01;
+
         if (is_right) {
             // if (coords.left <= limit_right)
             el.nativeElement.style.transform = `translateX(${deltaX}px) rotate(${deg}deg)`;
-            this.content?.nativeElement.classList.remove('red-card');
-            this.content?.nativeElement.classList.add('green-card');
+            this.yes_element.nativeElement.style.opacity = opcaity;
+            console.log("opacity", opcaity);
+
         }
 
 
         if (!is_right) {
             // if (coords.left >= limit_left)
             el.nativeElement.style.transform = `translateX(${deltaX}px) rotate(${deg}deg)`;
-            this.content?.nativeElement.classList.remove('green-card');
-            this.content?.nativeElement.classList.add('red-card');
+            this.no_element.nativeElement.style.opacity = opcaity * -1;
+            console.log("opacity", opcaity);
+
         }
 
     }
 
-    override onDragEnd(ev: GestureDetail) {
+    override async onDragEnd(ev: GestureDetail) {
 
         const el = this.element?.nativeElement;
 
@@ -79,9 +87,11 @@ export class CardGesture extends Gestures {
 
             setTimeout(() => {
             }, 500);
-            transform = `translateX(100%) rotate (${24}deg)`;
-            // (this.element.nativeElement as HTMLElement).classList.add('select-card');
-            // (this.status_card.nativeElement as HTMLElement).classList.add('status-card');
+            transform = `translateX(200%) rotate(${24}deg)`;
+            (this.element.nativeElement as HTMLElement).classList.add('select-card');
+            (this.status_card.nativeElement as HTMLElement).classList.add('status-card');
+            (this.card_buttons.nativeElement as HTMLElement).style.display = 'none';
+            await this.tabPage.accept();
 
         }
         else if ((coords.left) < limit_left) {
@@ -89,19 +99,17 @@ export class CardGesture extends Gestures {
 
             setTimeout(() => {
             }, 500);
-            transform = `translateX(-100%) rotate (${-24}deg)`;
-            // (this.element.nativeElement as HTMLElement).classList.add('select-card');
-            // (this.status_card.nativeElement as HTMLElement).classList.add('status-card');
+            transform = `translateX(-200%) rotate(${-24}deg)`;
+            (this.element.nativeElement as HTMLElement).classList.add('select-card');
+            (this.status_card.nativeElement as HTMLElement).classList.add('status-card');
+            (this.card_buttons.nativeElement as HTMLElement).style.display = 'none';
         }
-        else
+        else {
+            this.yes_element.nativeElement.style.opacity = 0;
+            this.no_element.nativeElement.style.opacity = 0;
+
             transform = `translate3d(0, 0, 0)`;
-        console.log('esquina izquierda', coords.left)
-
-        console.log('ezquina derecha', coords.left + el.innerWidth)
-
-        console.log('limite izq', limit_left)
-        console.log('limite der', limit_right)
-
+        }
 
         el.style.transform = transform;
 

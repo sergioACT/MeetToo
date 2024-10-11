@@ -1,4 +1,4 @@
-import { collection, getDoc, getFirestore, setDoc, doc, getDocs, onSnapshot, query, where, updateDoc } from 'firebase/firestore';
+import { collection, getDoc, getFirestore, setDoc, doc, getDocs, onSnapshot, query, where, updateDoc, deleteDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 
@@ -22,10 +22,10 @@ export class Connection {
         }
         return data;
     }
-    async getDocs(coleccion: string, ids: string[]) {
+    async getDocs(coleccion: string, ids: String[]) {
         try {
             const promesas = ids.map(id => {
-                const doc_ref = doc(this.firestore, coleccion, id);
+                const doc_ref = doc(this.firestore, coleccion, id.toString());
                 return getDoc(doc_ref);
             });
 
@@ -62,7 +62,6 @@ export class Connection {
             return [];
         }
     }
-
     async updateDoc(collection: string, id: string, newData: any) {
         const docRef = doc(this.firestore, collection, id);
         try {
@@ -72,6 +71,16 @@ export class Connection {
             console.error("Error updating document: ", e);
         }
     }
+    async deleteDoc(collection: string,id: string) {
+        try {
+          const docRef = doc(this.firestore, collection, id);
+          await deleteDoc(docRef);
+          console.log('Document successfully deleted!');
+        } catch (error) {
+          console.error('Error removing document: ', error);
+        }
+      }
+    
 }
 
 

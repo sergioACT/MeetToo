@@ -1,10 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { TabsPage } from '../tabs/tabs.page';
 import { Router } from '@angular/router';
-import { ActionSheetController, IonActionSheet, IonModal, IonToggle } from '@ionic/angular';
+import { ActionSheetController, IonActionSheet, IonInput, IonModal, IonToggle, ToastController } from '@ionic/angular';
 import { Browser } from '@capacitor/browser';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Facebook } from 'src/scripts/facebook';
+import { HttpClient } from '@angular/common/http';
+import { Geolocations } from 'src/scripts/geolocation';
 
 
 @Component({
@@ -15,18 +17,17 @@ import { Facebook } from 'src/scripts/facebook';
 export class Tab3Page extends TabsPage {
   @ViewChild('new_photo_modal') new_photo_modal?: IonModal;
   @ViewChild('action_sheet') action_sheet?: IonActionSheet;
+  @ViewChild('txt_phone') txt_phone?: IonInput;
+  @ViewChild('txt_whatsapp') txt_whatsapp?: IonInput;
 
   presentingElement: any;
   new_photo = '';
 
-  constructor(router: Router, private actionSheetCtrl: ActionSheetController) {
-    super(router);
+  constructor(toastController: ToastController, router: Router, geolocation: Geolocations, private actionSheetCtrl: ActionSheetController) {
+    super(toastController, router, geolocation);
     this.presentingElement = document.querySelector('.comp');
   }
 
-  open_external_app(url: string) {
-    Browser.open({ url });
-  }
 
   async open_facebook() {
     try {
@@ -53,6 +54,11 @@ export class Tab3Page extends TabsPage {
     });
 
     const imageUrl = `data:image/${image.format};base64,${image.base64String}`;
+
+    this.new_photo = imageUrl;
+    this.image_modal?.dismiss();
+    this.upload_photo_modal?.dismiss();
+    this.new_photo_modal?.present();
     console.log('Imagen capturada:', imageUrl);
   }
 
@@ -75,13 +81,14 @@ export class Tab3Page extends TabsPage {
   }
 
   async save_photo() {
-    if (this.user != undefined)
+    if (this.user != undefined) {
       this.user.photo = this.new_photo;
-    sessionStorage.setItem('log_user', JSON.stringify(this.user));
-    await this.connection.updateDoc('users', 'EwZZDmivXdau5vL635jG', { photo: this.new_photo });
-    this.new_photo_modal?.dismiss();
+      this.session.update(this.user);
+      await this.connection.updateDoc('users', this.user?.id.toString(), { photo: this.new_photo });
+      this.new_photo_modal?.dismiss();
 
-    this.action_sheet?.present();
+      this.action_sheet?.present();
+    }
   }
 
   async present_action_sheet() {
@@ -105,14 +112,39 @@ export class Tab3Page extends TabsPage {
   }
 
   async delete_photo() {
-    debugger
-    if (this.user != undefined)
+    if (this.user != undefined) {
       this.user.photo = './assets/images/no-user.png';
-    sessionStorage.setItem('log_user', JSON.stringify(this.user));
-    await this.connection.updateDoc('users', 'EwZZDmivXdau5vL635jG', { photo: this.new_photo });
-    sessionStorage.setItem('log_user', JSON.stringify(this.user));
-    this.new_photo_modal?.dismiss();
-    this.action_sheet?.present();
+      this.session.update(this.user);
+      await this.connection.updateDoc('users', this.user.id.toString(), { photo: this.new_photo });
+      this.session.update(this.user);
+      this.new_photo_modal?.dismiss();
+      this.action_sheet?.present();
+    }
   }
 
+  async update_number(event: any) {
+    const regex = /^\d{10}$/;
+    if (event.target.value != null && event.target.value.toString().trim() != "") {
+      var text = event.target.value.toString().trim();
+
+      if (regex.test(text)) {
+
+        if (this.user != undefined) {
+          this.user.phone = text;
+          debugger
+          this.session.update(this.user);
+          await this.connection.updateDoc('users', this.user?.id.toString(), { phone: text });
+
+          if (this.txt_phone && this.txt_whatsapp) {
+            this.txt_phone.value = "";
+            this.txt_whatsapp.value = "";
+
+            this.txt_phone.placeholder = text;
+            this.txt_whatsapp.placeholder = text;
+          }
+
+        }
+      }
+    }
+  }
 }

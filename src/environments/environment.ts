@@ -7,13 +7,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCFFrHLnnCt0QaxNbu4Sh_ytIsKXw6iD1o",
+    apiKey: "AIzaSyDh8vGOSvjigyqhTQjQCDcQtr3lAJsDC9g",
     authDomain: "meettoo-cb9c9.firebaseapp.com",
     projectId: "meettoo-cb9c9",
     storageBucket: "meettoo-cb9c9.appspot.com",
     messagingSenderId: "352780288701",
-    appId: "1:352780288701:web:6a7a035e27688d75a0edd4",
-    measurementId: "G-GG6TRWHCCX"
+    appId: "1:352780288701:web:e296d20d2cc9497ca0edd4",
+    measurementId: "G-G2486S7KPW"
   }
 };
 

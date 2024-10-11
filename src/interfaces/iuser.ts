@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
     id: String;
     first_name: String;
     last_name: String;
@@ -12,7 +12,9 @@ export interface User {
     visible_media: Boolean;
     visible_preferences: Boolean;
     complete_profile: Boolean;
-    friends: string[];
+    friends: String[];
+    latitude: number;
+    longitude: number;
   }
 
   export interface social_media{

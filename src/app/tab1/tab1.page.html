@@ -1,44 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
 
-<ion-content class="comp" [fullscreen]="true">
-  <ion-title class="title" size="large">Amigos</ion-title>
+    <div class="toolbar-page">
+      <span class="">
+        <ion-icon (click)="close_selector()" id="popover-button"
+          style="font-size:x-large; font-weight: bold; color: #6305dc;" name="ellipsis-horizontal"></ion-icon>
 
-<div>
-  <ion-searchbar color="light" (ionInput)="search($event)" class="firends-search"></ion-searchbar>
+        <ion-popover  trigger="popover-button" [dismissOnSelect]="true">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <ion-item [button]="true" (click)="open_selector()" [detail]="false">Seleccionar</ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </span>
+      <ion-title  >Amigos</ion-title>
+      <span class="">
 
-  <div class="recent-friends-card">
-    <div class="recent-avatars">
-      <ion-grid>
-        <ion-row>
-          <ion-col class="recent-col" *ngFor="let meet of actual_meetings">
-            <ion-avatar (click)="open_recent(meet.id)" class="recent-avatar" aria-hidden="true">
-              <img src="{{meet.photo}}" alt="">
-            </ion-avatar>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+        <ion-icon id="present-alert" style="font-size:x-large; font-weight: bold; color: #6305dc;"
+          name="power"></ion-icon>
+
+        <ion-alert trigger="present-alert" header="Salir!" message="¿Estas seguro que deseas salir?"
+          [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
+
+
+      </span>
     </div>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="comp" [fullscreen]="true">
+
+  <div>
+
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large" #title>Amigos</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-searchbar color="light" (ionInput)="search($event)" class="firends-search"></ion-searchbar>
+
+    <div class="recent-friends-card">
+      <div class="recent-avatars">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="recent-col" *ngFor="let meet of actual_meetings">
+              <ion-avatar (click)="open_recent(meet.id)" class="recent-avatar" aria-hidden="true">
+                <img src="{{meet.photo}}" alt="">
+              </ion-avatar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+    <div class="friend-list">
+      <ion-list>
+        <ion-item (click)="select(friend.id)" style="height: 70px; padding: 5px 0;" *ngFor="let friend of friends"
+          lines="none">
+
+          <div class="selected-avatar" style="display: flex;">
+            <div #check_user class="check-user" style="margin-right:10px ;" [style.Display]="selection_display">
+              <ion-checkbox id="{{friend.id}}" required="true" #terms_and_conditions
+                class="register-checkbox"></ion-checkbox>
+            </div>
+            <div style="width: 70px;">
+              <ion-avatar style="height: 60px; width: 60px;" aria-hidden="true" slot="start">
+                <img [src]="friend.photo ? friend.photo : './assets/images/no-user.png'" class="image-profile" />
+              </ion-avatar>
+            </div>
+          </div>
+
+          <div class="friend-data">
+            <ion-label id="friend-name" class="friend-name">{{friend.first_name}}</ion-label>
+            <ion-label *ngIf="friend.visible_preferences" id="friend-description"
+              class="friend-description">{{friend.preferences}}</ion-label>
+          </div>
+          <div class="friend-icons">
+            <ion-icon (click)="openModal(true,friend.email)" class="chat-icon" name="chatbubbles-outline"></ion-icon>
+          </div>
+
+        </ion-item>
+      </ion-list>
+    </div>
+
   </div>
-
-  <div class="friend-list">
-    <ion-list>
-      <ion-item *ngFor="let friend of friends" lines="none">
-        <ion-avatar aria-hidden="true" slot="start">
-          <img  [src]="friend.photo ? friend.photo : './assets/images/no-user.png'" class="image-profile" />
-        </ion-avatar>
-        <div class="friend-data">
-          <ion-label id="friend-name" class="friend-name">{{friend.first_name}}</ion-label>
-          <ion-label *ngIf="friend.visible_preferences" id="friend-description"
-            class="friend-description">{{friend.preferences}}</ion-label>
-        </div>
-        <div class="friend-icons">
-          <ion-icon (click)="openModal(true,friend.email)" class="chat-icon" name="chatbubbles-outline"></ion-icon>
-        </div>
-      </ion-item>
-    </ion-list>
-  </div>
-
-
-  <ion-modal class="modal-chat" #social_modal  [initialBreakpoint]="0.20" [breakpoints]="[0, 0.20]"
+  <ion-modal class="modal-chat" #social_modal [initialBreakpoint]="0.20" [breakpoints]="[0, 0.20]"
     handleBehavior="cycle">
     <ng-template>
       <ion-content [style.Display]="friend_visble_media" class="ion-padding">
@@ -55,9 +104,5 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
-  
-</div>
-
 
 </ion-content>
