@@ -1,4 +1,4 @@
-<ion-content scroll-y="false" #content [fullscreen]="true">
+<ion-content scroll-y="false" style="display: flex; flex-direction: row; " #content [fullscreen]="true">
   
   <div #top class="register-top register-top-size">
 
@@ -50,74 +50,72 @@
     </div>
   </div>
 
-  <div style="display: flex; flex-direction: row; width: 1552px; " >
-    <div #step1 class="register-content ">
-      <div>
-        <ion-input #email class="register-input" label="Email" label-placement="floating" fill="outline" type="email"
-          placeholder="email"></ion-input>
-        <ion-input #password class="register-input" label="Contraseña" label-placement="floating" fill="outline"
-          type="password" placeholder="password"></ion-input>
-  
-  
-      </div>
-      <div class="register-footer">
-        <ion-label class="register-button" fill="clear" (click)="register_option(false)">Atras</ion-label>
-        <ion-label class="register-button" fill="clear" (click)="next(1)">Siguiente</ion-label>
+  <div #step1 class="register-content ">
+    <div>
+      <ion-input #email class="register-input" label="Email" label-placement="floating" fill="outline" type="email"
+        placeholder="email"></ion-input>
+      <ion-input #password class="register-input" label="Contraseña" label-placement="floating" fill="outline"
+        type="password" placeholder="password"></ion-input>
+
+
+    </div>
+    <div class="register-footer">
+      <ion-label class="register-button" fill="clear" (click)="register_option(false)">Atras</ion-label>
+      <ion-label class="register-button" fill="clear" (click)="next(1)">Siguiente</ion-label>
+    </div>
+  </div>
+
+  <!-- <ion-content scroll-y="false"> -->
+  <div #step2 class="register-content-b">
+    <div >
+      <ion-input #first_name class="register-input" label="Nombre" label-placement="floating" fill="outline"
+        placeholder="frist name"></ion-input>
+      <ion-input #last_name class="register-input" label="Apellido" label-placement="floating" fill="outline"
+        placeholder="last name"></ion-input>
+      <ion-input #number class="register-input" label="Telefono" label-placement="floating" fill="outline"
+        type="numeric" placeholder="number"></ion-input>
+    </div>
+    <div class="register-footer">
+      <ion-label class="register-button" fill="clear" (click)="back(2)">Atras</ion-label>
+      <ion-label class="register-button" fill="clear" (click)="next(2)">Siguiente</ion-label>
+    </div>
+  </div>
+  <!-- </ion-content> -->
+
+  <div #step3 class="register-content-b">
+    <div>
+      <div class="date-picker" >
+        <ion-input #day class="register-input" label="Dia" label-placement="floating" fill="outline"
+              placeholder="day"></ion-input>
+            <ion-input #month class="register-input" type="number" label="Mes" label-placement="floating" fill="outline"
+              placeholder="month"></ion-input>
+            <ion-input #year class="register-input" label="Año" label-placement="floating" fill="outline"
+              type="numeric" placeholder="year"></ion-input>
       </div>
     </div>
-  
-    <!-- <ion-content scroll-y="false"> -->
-    <div #step2 class="register-content-b">
-      <div >
-        <ion-input #first_name class="register-input" label="Nombre" label-placement="floating" fill="outline"
-          placeholder="frist name"></ion-input>
-        <ion-input #last_name class="register-input" label="Apellido" label-placement="floating" fill="outline"
-          placeholder="last name"></ion-input>
-        <ion-input #number class="register-input" label="Telefono" label-placement="floating" fill="outline"
-          type="numeric" placeholder="number"></ion-input>
+    <div class="register-footer">
+      <ion-label class="register-button" fill="clear" (click)="back(3)">Atras</ion-label>
+      <ion-label class="register-button" fill="clear" (click)="next(3)">Siguiente</ion-label>
+    </div>
+  </div>
+
+  <div #step4 class="register-content-b">
+    <div>
+      <ion-input #nick_name class="register-input" label="Apodo" label-placement="floating" fill="outline"
+        placeholder="nick name"></ion-input>
+      <ion-textarea #description rows="15" class="register-textaera" label="Descripción" label-placement="floating"
+        fill="outline" type="descripcion" placeholder="talk about you"></ion-textarea>
+      <ion-checkbox #visible_description class="register-checkbox">Quiero mostrar mi descripción</ion-checkbox>
+    </div>
+    <div>
+      <div class="terms">
+        <ion-checkbox required="true" #terms_and_conditions class="register-checkbox">Acepto terminos y
+          condiciones.</ion-checkbox>
+
       </div>
       <div class="register-footer">
-        <ion-label class="register-button" fill="clear" (click)="back(2)">Atras</ion-label>
-        <ion-label class="register-button" fill="clear" (click)="next(2)">Siguiente</ion-label>
-      </div>
-    </div>
-    <!-- </ion-content> -->
-  
-    <div #step3 class="register-content-b">
-      <div>
-        <div class="date-picker" >
-          <ion-input #day class="register-input" label="Dia" label-placement="floating" fill="outline"
-                placeholder="day"></ion-input>
-              <ion-input #month class="register-input" type="number" label="Mes" label-placement="floating" fill="outline"
-                placeholder="month"></ion-input>
-              <ion-input #year class="register-input" label="Año" label-placement="floating" fill="outline"
-                type="numeric" placeholder="year"></ion-input>
-        </div>
-      </div>
-      <div class="register-footer">
-        <ion-label class="register-button" fill="clear" (click)="back(3)">Atras</ion-label>
-        <ion-label class="register-button" fill="clear" (click)="next(3)">Siguiente</ion-label>
-      </div>
-    </div>
-  
-    <div #step4 class="register-content-b">
-      <div>
-        <ion-input #nick_name class="register-input" label="Apodo" label-placement="floating" fill="outline"
-          placeholder="nick name"></ion-input>
-        <ion-textarea #description rows="15" class="register-textaera" label="Descripción" label-placement="floating"
-          fill="outline" type="descripcion" placeholder="talk about you"></ion-textarea>
-        <ion-checkbox #visible_description class="register-checkbox">Quiero mostrar mi descripción</ion-checkbox>
-      </div>
-      <div>
-        <div class="terms">
-          <ion-checkbox required="true" #terms_and_conditions class="register-checkbox">Acepto terminos y
-            condiciones.</ion-checkbox>
-  
-        </div>
-        <div class="register-footer">
-          <ion-label class="register-button" fill="clear" (click)="back(4)">Atras</ion-label>
-          <ion-label class="register-button" fill="clear" (click)="confirm()">Siguiente</ion-label>
-        </div>
+        <ion-label class="register-button" fill="clear" (click)="back(4)">Atras</ion-label>
+        <ion-label class="register-button" fill="clear" (click)="confirm()">Siguiente</ion-label>
       </div>
     </div>
   </div>

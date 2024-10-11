@@ -55,7 +55,7 @@ export class RegisterPage implements OnInit {
   constructor(private toastController: ToastController, private router: Router, private client: HttpClient) {
     // Inicializa la instancia de Beacon
     this.geolocation = new Geolocations(this.toastController,client);
-    this.height = window.innerWidth;
+    this.height = window.innerHeight;
     this.initializeKeyboardListeners();
   }
 
@@ -116,7 +116,7 @@ export class RegisterPage implements OnInit {
         this.step3?.nativeElement.classList.remove("disbaled-content");
         break;
     }
-    this.content?.scrollByPoint( this.height ?? 0,0, 300);
+    this.content?.scrollByPoint(0, this.height ?? 0, 300);
   }
 
   register_option(sing_in: boolean) {
