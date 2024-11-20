@@ -2,31 +2,9 @@
   <ion-toolbar>
 
     <div class="toolbar-page">
-      <span class="">
-        <ion-icon (click)="close_selector()" id="popover-button"
-          style="font-size:x-large; font-weight: bold; color: #6305dc;" name="ellipsis-horizontal"></ion-icon>
-
-        <ion-popover  trigger="popover-button" [dismissOnSelect]="true">
-          <ng-template>
-            <ion-content>
-              <ion-list>
-                <ion-item [button]="true" (click)="open_selector()" [detail]="false">Seleccionar</ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-        </ion-popover>
-      </span>
-      <ion-title  >Amigos</ion-title>
-      <span class="">
-
-        <ion-icon id="present-alert" style="font-size:x-large; font-weight: bold; color: #6305dc;"
-          name="power"></ion-icon>
-
-        <ion-alert trigger="present-alert" header="Salir!" message="¿Estas seguro que deseas salir?"
-          [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
-
-
-      </span>
+      <app-header-icon (itemSelected)="open_selector()" type="ellipsis" name="ellipsis-horizontal"></app-header-icon>
+      <ion-title>Amigos</ion-title>
+      <app-header-icon type="power" name="power"></app-header-icon>
     </div>
 
   </ion-toolbar>
@@ -46,11 +24,13 @@
       <div class="recent-avatars">
         <ion-grid>
           <ion-row>
-            <ion-col class="recent-col" *ngFor="let meet of actual_meetings">
-              <ion-avatar (click)="open_recent(meet.id)" class="recent-avatar" aria-hidden="true">
-                <img src="{{meet.photo}}" alt="">
-              </ion-avatar>
-            </ion-col>
+            <div class="scroll-container">
+              <ion-col class="recent-col" *ngFor="let meet of actual_meetings">
+                <ion-avatar (click)="open_recent(meet.id)" class="recent-avatar avatar-icon" aria-hidden="true">
+                  <img src="{{meet.photo}}" alt="">
+                </ion-avatar>
+              </ion-col>
+            </div>
           </ion-row>
         </ion-grid>
       </div>

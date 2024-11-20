@@ -4,8 +4,9 @@ export interface Meetings {
 }
 
 export interface Datum {
-    creation_date: string;
+    creation_date: any;
     percentage:    number;
     id_user:       string;
-    location:      string;
+    latitude:      number;
+    longitude:      number;
 }

@@ -1,24 +1,14 @@
-
 <ion-header [translucent]="true">
-<ion-toolbar style=" --border-width: 0 0 0px;">
+  <ion-toolbar style=" --border-width: 0 0 0px;">
 
     <div class="toolbar-page">
       <span>
-        <ion-icon id="popover-button" style="font-size:x-large; font-weight: bold; color: #6305dc;" name="ellipsis-horizontal"></ion-icon>
+        <ion-icon id="popover-button" class="toolbar-icon" name="ellipsis-horizontal"></ion-icon>
         <ion-popover trigger="popover-button" [dismissOnSelect]="true">
           <ng-template>
             <ion-content>
               <ion-list>
                 <ion-item [button]="true" [detail]="false">Seleccionar</ion-item>
-                <ion-popover trigger="nested-trigger" [dismissOnSelect]="true" side="end">
-                  <ng-template>
-                    <ion-content>
-                      <ion-list>
-                        <ion-item [button]="true" [detail]="false">Nested option</ion-item>
-                      </ion-list>
-                    </ion-content>
-                  </ng-template>
-                </ion-popover>
               </ion-list>
             </ion-content>
           </ng-template>
@@ -26,17 +16,17 @@
       </span>
       <ion-title style="text-align: center;"><b style="color: #6305dc;">meet</b><b>too</b></ion-title>
       <span>
-        <ion-icon id="present-alert" style="font-size:x-large; font-weight: bold; color: #6305dc;" name="settings"></ion-icon>
+        <ion-icon id="present-alert" class="toolbar-icon" name="settings"></ion-icon>
       </span>
     </div>
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="height: 100vh;" [fullscreen]="true" [scrollEvents]="false">
+<ion-content class="full-height" [fullscreen]="true" [scrollEvents]="false">
 
   <div class="content" #content_card style="height: 100%;">
-    <div class="container-cards " >
+    <div class="container-cards ">
       <div #status_card class="status">
         <div *ngIf="recent_user" class="card-status">
           <div class="card-status-header">
@@ -85,9 +75,9 @@
 
         </ion-card>
       </div>
-      <div class="card_final">
+      <!-- <div class="card_final">
         <label style="text-align: center;" for="">no hay conexiones recientes por mostrar.</label>
-      </div>
+      </div> -->
       <div #card_buttons class="card-action-buttons">
         <div class="button-card dislike">
           <ion-icon name="heart-dislike"></ion-icon>

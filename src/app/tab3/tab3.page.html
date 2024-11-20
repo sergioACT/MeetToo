@@ -5,8 +5,7 @@
     </div>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-
+<ion-content [fullscreen]="true" *ngIf="user">
   <div>
 
     <ion-header collapse="condense">
@@ -16,7 +15,7 @@
     </ion-header>
 
     <ion-card>
-      <div #profile_editor class="profile-setings-card" *ngIf="user">
+      <div #profile_editor class="profile-setings-card">
         <div (click)="open_editor()" class="profile-setings-rounded">
           <ion-avatar (click)="openModal(false,user.email)" class="profile-avatar" aria-hidden="true">
             <img src="{{user.photo}}" alt="">
@@ -67,7 +66,7 @@
     </ion-card>
 
     <ion-card class="settings-card">
-      <ion-list class="list-settings" *ngIf="user" [inset]="true">
+      <ion-list class="list-settings" [inset]="true">
         <ion-item (click)="open_facebook()" [button]="true" lines="none">
           <div class="social-media-content">
             <div class="social-media-left">
@@ -157,86 +156,5 @@
   <div class="version-content">
     <ion-label>1.0.0 beta</ion-label>
   </div>
-
 </ion-content>
 
-
-<ion-modal class="modal-photo" #image_modal [canDismiss]="canDismiss" [presentingElement]="presentingElement">
-  <ng-template class="ion-padding">
-
-    <ion-content class="modal-body">
-
-      <div class="modal-content">
-        <div class="modal-header">
-          <ion-icon class="header-icon" name="chevron-back-outline" (click)="image_modal.dismiss()"></ion-icon>
-          <ion-label class="header-text">Foto del perfil</ion-label>
-          <ion-label class="header-text" (click)="open_modal()">Editar</ion-label>
-
-        </div>
-        <img src="{{modal_photo}}" alt="">
-        <div class="modal-header ">
-          <ion-icon class="header-icon safe-area-btm" name="share-social-outline"></ion-icon>
-        </div>
-        <!-- <ion-action-sheet #action_sheet [buttons]="actionSheetButtons"></ion-action-sheet> -->
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
-
-<ion-modal class="photo-modal" #upload_photo_modal [canDismiss]="canDismiss" [initialBreakpoint]="0.40"
-  [breakpoints]="[0, 0.40]" handleBehavior="cycle">
-  <ng-template>
-    <ion-content class="ion-padding">
-      <div class="upload-image-modal">
-        <div class="image-modal-header">
-          <div class="image-text-header">
-            <div>
-              <img class="mini-modal-image" src="{{modal_photo}}" alt="">
-            </div>
-            <div class="text-header">
-              <ion-label>Editar foto de perfil</ion-label>
-            </div>
-          </div>
-          <div class="icon-header" (click)="upload_photo_modal.dismiss()">
-            <ion-icon name="close-outline"></ion-icon>
-          </div>
-        </div>
-        <div class="image-modal-content">
-          <ion-list color="balck" class="list-header" [inset]="true">
-            <ion-item (click)="open_camera()" class="item-header">
-              <ion-label>Tomar foto</ion-label>
-              <ion-icon class="item-header" name="camera-outline"></ion-icon>
-            </ion-item>
-            <ion-item (click)="open_gallery()" class="item-header">
-              <ion-label>Seleccionar foto</ion-label>
-              <ion-icon class="item-header" name="image-outline"></ion-icon>
-            </ion-item>
-            <ion-item class="item-header">
-              <ion-label class="item-header" (click)="present_action_sheet()">Eliminar foto</ion-label>
-              <ion-icon class="item-header" name="trash-outline"></ion-icon> </ion-item>
-          </ion-list>
-        </div>
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
-
-
-<ion-modal class="modal-photo" #new_photo_modal [canDismiss]="canDismiss" [presentingElement]="presentingElement">
-  <ng-template class="ion-padding">
-
-    <ion-content class="modal-body">
-
-      <div class="modal-content safe-area-btm">
-        <div class="modal-header">
-          <ion-label class="header-text">Foto del perfil</ion-label>
-        </div>
-        <img src="{{new_photo}}" alt="">
-        <div class="modal-header">
-          <ion-label (click)="new_photo_modal.dismiss()">Cancelar</ion-label>
-          <ion-label (click)="save_photo()">Seleccionar</ion-label>
-        </div>
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>

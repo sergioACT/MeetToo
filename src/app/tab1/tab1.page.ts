@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { TabsPage } from '../tabs/tabs.page';
 import { Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
@@ -7,6 +7,7 @@ import { Tab2Page } from '../tab2/tab2.page';
 import { animation } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Geolocations } from 'src/scripts/geolocation';
+import { IUser } from 'src/interfaces/iuser';
 
 @Component({
   selector: 'app-tab1',
@@ -15,10 +16,9 @@ import { Geolocations } from 'src/scripts/geolocation';
 })
 export class Tab1Page extends TabsPage {
 
-  @ViewChild('friends_title') friends_title? : HTMLIonTitleElement;
+  @ViewChild('friends_title') friends_title?: HTMLIonTitleElement;
 
-  is_open_selector?: boolean = false;
-  selection_display = 'none';
+
 
 
   modalController?: ModalController;
@@ -41,14 +41,18 @@ export class Tab1Page extends TabsPage {
     },
   ];
   constructor(toastController: ToastController, router: Router, geolocation: Geolocations) {
-    super(toastController, router,geolocation);
+    super(toastController, router, geolocation);
     this.presentingElement = document.querySelector('.comp');
-
-    this.selection_display = 'none';
-
   }
-  setResult(ev: any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
+
+
+  async ionViewWillEnter() {
+    debugger
+    if (this.user && this.usr)
+      if (this.user.friends)
+        this.all_friends = await this.usr.get_friends();
+    this.friends = this.all_friends ?? new Array<IUser>;  
+  
   }
   open_app(user_name: string, app: string) {
     var url = "";
@@ -77,36 +81,16 @@ export class Tab1Page extends TabsPage {
     this.router.navigate(["/tabs/tab2", recent_id]);
   }
 
-  open_selector() {
-    if (!this.is_open_selector) {
-      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
-      icon.name = "close";
-      this.selection_display = 'block';
-      this.is_open_selector = true;
-    }
-  }
-
-  close_selector(){
-  if(this.is_open_selector){
-    const icon = document.getElementById("popover-button") as HTMLIonIconElement;
-
-    icon.name = "ellipsis-horizontal";
-    this.selection_display = 'none';
-    this.is_open_selector = false;
-  }
-  }
-
-  
   select(friendid: String) {
     console.log(friendid);
-    debugger
+
     const checkbox = document.getElementById(friendid.toString()) as HTMLIonCheckboxElement;
     if (checkbox) {
       checkbox.checked = true; // Selecciona el checkbox
     }
     this.selecteds?.push(friendid);
 
-    if(this.friends_title)
-    this.friends_title.textContent= this.selecteds?.length + " Seleccionados";
+    if (this.friends_title)
+      this.friends_title.textContent = this.selecteds?.length + " Seleccionados";
   }
 }

@@ -1,18 +1,35 @@
-<ion-tabs #tabs class="safe-area" >
+<ion-tabs #tabs class="safe-area">
 
-  <ion-tab-bar class="tab-bar" slot="bottom">
+  <ion-tab-bar [style.display]="normal_tab_display" class="tab-bar" slot="bottom">
     <ion-tab-button class="tab-button" tab="tab1" href="/tabs/tab1">
       <ion-icon class="tab-icon" aria-hidden="true" name="{{tab1_icon_name}}"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button class="tab-button" tab="tab2" href="/tabs/tab2">
-      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab2_icon_name}}" ></ion-icon>
+      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab2_icon_name}}"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button class="tab-button" tab="tab3" href="/tabs/tab3">
-      <ion-icon class="tab-icon" aria-hidden="true" name="{{tab3_icon_name}}" ></ion-icon>
+      <ion-avatar *ngIf="user" class="profile-avatar avatar-icon" aria-hidden="true">
+        <img src="{{user.photo}}" alt="">
+      </ion-avatar>
     </ion-tab-button>
-    
+  </ion-tab-bar>
+
+  <ion-tab-bar [style.display]="select_tab_display" class="tab-bar" slot="bottom">
+    <ion-tab-button class="tab-button" tab="tab1" href="/tabs/tab1">
+      <ion-label>Eliminar</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button class="tab-button" tab="tab2" href="/tabs/tab2">
+      <ion-label>Seleccionar todo</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button class="tab-button" tab="tab3" href="/tabs/tab3">
+      <ion-label>Cancelar</ion-label>
+    </ion-tab-button>
+
+
   </ion-tab-bar>
 
 </ion-tabs>

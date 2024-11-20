@@ -11,7 +11,7 @@ export class Connection {
     }
 
     async setDoc(collection: string, id: string, document: object) {
-        await setDoc(doc(this.firestore, collection, id), document);
+    var response =  await setDoc(doc(this.firestore, collection, id), document);
     }
     async getDoc(collection: string, id: string) {
         var doc_ref = doc(this.firestore, collection, id);
@@ -41,6 +41,7 @@ export class Connection {
             return [];
         }
     }
+
     async getDocsByIds(_collection: string, filters: { [key: string]: any }) {
         try {
             let q = query(

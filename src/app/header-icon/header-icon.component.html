@@ -1,0 +1,14 @@
+<span class="">
+  <ion-icon (click)="click($event)"  id="popover-button" class="header-icon" name="{{name}}"></ion-icon>
+  <ion-popover #pop_over [dismissOnSelect]="true">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item (click)="select()" [button]="true"  [detail]="false">Seleccionar</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+  <ion-alert #alert header="Salir!" message="¿Estas seguro que deseas salir?" [buttons]="alertButtons" ></ion-alert>
+
+</span>

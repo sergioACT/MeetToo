@@ -8,10 +8,10 @@ export class User {
   public firends?: Array<IUser>;
   public connection?: Connection;
   public session?: Session;
-  
+
   constructor(user: IUser, connection?: Connection, firends?: Array<IUser>, session?: Session) {
     this.user = user;
-    this.firends = firends;
+    this.firends = firends ?? new Array<IUser>;
     this.connection = connection;
     this.session = session;
   }
@@ -21,43 +21,49 @@ export class User {
   }
 
   async get_meetings() {
-    let meetings = await this.connection?.getDoc('meetings', this.user?.id.toString()) as Meetings;
-    let new_meetings = new Array;
-    let all_meetings = new Array;
-    if (meetings && this.user.friends) {
-      if (meetings.data.length > 0) {
-        meetings.data.forEach(meet => {
-          if (this.firends?.filter(x => x.id == meet.id_user) != undefined) {
-            let indexToRemove = meetings?.data.indexOf(meet) ?? -1;
-            if (indexToRemove > -1)
-              meetings?.data.splice(indexToRemove);
-          }
-        });
-        meetings.data = new_meetings;
-        if (this.user)
-          await this.connection?.updateDoc('meetings', this.user.id.toString(), meetings);
+    debugger
+    let connections = await this.connection?.getDoc('meetings', this.user?.id.toString()) as Object;
 
-        let meets_ids = meetings.data.map(x => x.id_user);
+    let meetings = connections as Meetings;
+    let all_meetings = new Array;
+
+    if (meetings && meetings.data.length > 0) {
+      // Filtrar los IDs de usuarios que no son amigos
+      let meets_ids = meetings.data
+        .filter(x => !this.user.friends.includes(x.id_user)) // Filtra los IDs de usuarios no amigos
+        .map(x => x.id_user); // Solo obtener los IDs de esos usuarios
+
+      meetings.data = meetings.data
+        .filter(x => !this.user.friends.includes(x.id_user)); // Filtra los IDs de usuarios no amigos;
+      if (meets_ids.length > 0) {
+        // Obtener documentos de usuarios que no son amigos
+
         all_meetings = await this.connection?.getDocs('users', meets_ids) as Array<User>;
       }
     }
 
-    return all_meetings;
+    return { all_meetings, meetings };
   }
 
+
   async get_friends() {
+    if (this.user)
+      this.user.friends = this.user?.friends.filter(x => x != "");
     return await this.connection?.getDocs('users', this.user?.friends) as Array<IUser>;
   }
 
-  async get_recents(recent_id: string){
-    console.log("recientes... ",await this.connection?.getDoc('users', recent_id));
+  async get_recents(recent_id: string) {
+    console.log("recientes... ", await this.connection?.getDoc('users', recent_id));
     return await this.connection?.getDoc('users', recent_id) as IUser;
   }
 
   async accept_friend(recent_id: string) {
     if (recent_id && this.user) {
-      this.user?.friends.push(recent_id);
-      await this.connection?.updateDoc('users', this.user?.id.toString(), { friends: this.user?.friends });
+
+      if (this.user.friends == undefined)
+        this.user.friends = new Array<string>;
+      this.user.friends.push(recent_id);
+      await this.connection?.updateDoc('users', this.user?.id.toString(), { friends: this.user.friends });
       this.session?.update(this.user);
     }
   }

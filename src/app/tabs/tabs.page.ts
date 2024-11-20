@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, } from '@angular/core';
 import { Connection } from 'src/scripts/connection';
-import { Gesture, GestureController, IonContent, IonIcon, IonInput, IonModal, IonTabs, IonTextarea, IonToggle, ModalController, ToastController } from '@ionic/angular';
+import { Gesture, GestureController, IonContent, IonIcon, IonInput, IonModal, IonTabBar, IonTabs, IonTextarea, IonToggle, ModalController, ToastController } from '@ionic/angular';
 import { Router, Event } from '@angular/router';
 import { IUser } from '../../interfaces/iuser';
 import { Meetings } from '../../interfaces/meetings';
@@ -9,7 +9,6 @@ import { Session } from 'src/scripts/sesson';
 import { User } from 'src/scripts/user';
 import { Geolocations } from 'src/scripts/geolocation';
 import { HttpClient } from '@angular/common/http';
-
 
 
 @Component({
@@ -30,8 +29,8 @@ export class TabsPage {
   router: Router;
   ui_actions?: UIActions;
   usr: User | undefined;
-user_meet: any;
-geolocation?: Geolocations;
+  user_meet: any;
+  geolocation?: Geolocations;
 
 
   description_display = 'block'
@@ -53,6 +52,11 @@ geolocation?: Geolocations;
   link_f: string = "";
   link_x: string = "";
 
+  is_open_selector?: boolean = false;
+
+  select_tab_display = 'none';
+  normal_tab_display = 'flex';
+  selection_display = 'none';
 
   //[START] UI Components
   @ViewChild('social_modal') social_modal?: IonModal;
@@ -67,9 +71,12 @@ geolocation?: Geolocations;
   @ViewChild('txt_nickname') txt_nickname?: IonInput;
   @ViewChild('txt_description') txt_description?: IonTextarea;
   @ViewChild('tabs', { static: false }) tabs?: ElementRef;
+
+  @ViewChild('first_tab_bar') first_tab_bar?: ElementRef;
+  @ViewChild('select_tab_bar') select_tab_bar?: HTMLIonTabBarElement;
   //[END] UI Components
 
-  constructor(private toastController: ToastController,router: Router, geolocation: Geolocations) {
+  constructor(private toastController: ToastController, router: Router, geolocation: Geolocations) {
     this.geolocation = geolocation;
     this.session = new Session('log_user');
     this.router = router;
@@ -89,19 +96,55 @@ geolocation?: Geolocations;
     this.usr = new User(this.user);
     this.usr.connection = this.connection;
 
+    this.selection_display = 'none';
+
+
   }
 
   async ngOnInit() {
+    debugger
     if (this.user && this.usr) {
       this.fullname = this.usr.get_full_name();
-      this.all_friends = await this.usr.get_friends();
-      this.friends = this.all_friends;
+      if(this.user.friends)
+        this.all_friends = await this.usr.get_friends();
+      this.friends = this.all_friends ?? new Array<IUser>;
       this.usr.firends = this.all_friends;
-      this.actual_meetings = await this.usr.get_meetings();
+      ({all_meetings: this.actual_meetings, meetings: this.meetings} = await this.usr.get_meetings());
 
+    }
+  } 
+  open_selector() {
+    if (!this.is_open_selector) {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
+      icon.name = "close";
+ 
+      this.selection_display = 'block';
+      this.select_tab_display = 'block';
+      this.normal_tab_display = 'none';
+    
+      this.is_open_selector = true;
+
+    }
+    else {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
+
+      icon.name = "ellipsis-horizontal";
+      this.selection_display = 'none';
+      this.select_tab_display = 'none';
+      this.normal_tab_display = 'flex';
+      this.is_open_selector = false;
     }
   }
 
+  close_selector() {
+    if (this.is_open_selector) {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
+
+      icon.name = "ellipsis-horizontal";
+      this.selection_display = 'none';
+      this.is_open_selector = false;
+    }
+  }
 
 
   on_checked(event: CustomEvent, tag: string) {

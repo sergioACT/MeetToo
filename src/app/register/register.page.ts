@@ -37,6 +37,7 @@ export class RegisterPage implements OnInit {
   @ViewChild('number') txt_number?: IonInput;
   @ViewChild('description') txt_description?: IonInput;
   @ViewChild('visible_description') chk_visible_description?: IonCheckbox;
+  @ViewChild('terms_and_conditions') chk_terms_and_conditions?: IonCheckbox;
 
   @ViewChild('day') day?: IonInput;
   @ViewChild('month') month?: IonInput;
@@ -51,11 +52,18 @@ export class RegisterPage implements OnInit {
   ui_actions?: UIActions;
   connection?: Connection;
   height?: number;
+  width?: number;
+  all_section?: string;
+  page_width?: string;
 
   constructor(private toastController: ToastController, private router: Router, private client: HttpClient) {
     // Inicializa la instancia de Beacon
-    this.geolocation = new Geolocations(this.toastController,client);
-    this.height = window.innerWidth;
+    this.geolocation = new Geolocations(this.toastController, client);
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.all_section = (this.width * 6) + "px";
+    this.page_width = (this.width) + "px";
+
     this.initializeKeyboardListeners();
   }
 
@@ -63,10 +71,6 @@ export class RegisterPage implements OnInit {
 
   async ngOnInit() {
     this.ui_actions = new UIActions();
-
-    var coordinates = await this.geolocation.getLocation();
-
-
   }
 
 
@@ -80,7 +84,7 @@ export class RegisterPage implements OnInit {
 
     switch (section) {
       case 1:
-        this.step1?.nativeElement.classList.remove("disbaled-content");
+          this.step1?.nativeElement.classList.remove("disbaled-content");
         break;
       case 2:
         this.step2?.nativeElement.classList.remove("disbaled-content");
@@ -92,8 +96,8 @@ export class RegisterPage implements OnInit {
         this.step3?.nativeElement.classList.remove("disbaled-content");
         break;
     }
+    this.content?.scrollByPoint(-(this.width ?? 0), 0, 300);
 
-    this.content?.scrollByPoint(0, -(this.height ?? 0), 300);
   }
 
   next(section: number) {
@@ -104,25 +108,38 @@ export class RegisterPage implements OnInit {
 
     switch (section) {
       case 1:
-        this.step1?.nativeElement.classList.remove("disbaled-content");
+        if (this.txt_email?.value?.toString() != "" && this.txt_pasword?.value?.toString() != "") {
+          this.content?.scrollByPoint((this.width ?? 0), 0, 300);
+          this.step1?.nativeElement.classList.remove("disbaled-content");
+        } 
         break;
       case 2:
-        this.step2?.nativeElement.classList.remove("disbaled-content");
+        if (this.txt_first_name?.value?.toString() != "" && this.txt_last_name?.value?.toString() != "" && this.txt_number?.value?.toString() != "") {
+          this.content?.scrollByPoint((this.width ?? 0), 0, 300);
+          this.step1?.nativeElement.classList.remove("disbaled-content");
+        }
         break;
       case 3:
-        this.step3?.nativeElement.classList.remove("disbaled-content");
-        break;
+        if (this.day?.value?.toString() != "" && this.month?.value?.toString() != "" && this.year?.value?.toString() != "") {
+          this.content?.scrollByPoint((this.width ?? 0), 0, 300);
+          this.step1?.nativeElement.classList.remove("disbaled-content");
+        } 
+        break;        
       case 4:
-        this.step3?.nativeElement.classList.remove("disbaled-content");
-        break;
+        if (this.chk_terms_and_conditions?.checked) {
+          this.content?.scrollByPoint((this.width ?? 0), 0, 300);
+          this.step1?.nativeElement.classList.remove("disbaled-content");
+        } 
+        break; 
     }
-    this.content?.scrollByPoint( this.height ?? 0,0, 300);
   }
 
   register_option(sing_in: boolean) {
-    var display = this.ui_actions?.sing_in(sing_in, this.top).toString();
-    if (display != null)
-      this.display = display;
+    if (sing_in)
+      this.content?.scrollByPoint(this.width ?? 0, 0, 300);
+    else
+      this.content?.scrollByPoint(-(this.width ?? 0), 0, 300);
+
   }
   login_option(back: boolean) {
     if (back) {
@@ -140,6 +157,28 @@ export class RegisterPage implements OnInit {
     var users = await this.connection.getDocsByIds('users', {
       email: this.txt_login_email?.nativeElement.value.toString().toLowerCase(),
       password: this.txt_login_pasword?.nativeElement.value
+    });
+    var route = '/tabs/tab2';
+
+    if (users.length > 0) {
+      var user = users[0];
+      sessionStorage.setItem('log_user', JSON.stringify(user));
+      if (!(JSON.parse(JSON.stringify(user))).complete_profile)
+        route = '/tabs/tab3';
+      this.router.navigate([route]);
+
+    } else {
+      this.login_toast?.present();
+    }
+
+  }
+
+  async fn_login(email?: string, password?: string) {
+
+    this.connection = new Connection();
+    var users = await this.connection.getDocsByIds('users', {
+      email: email?.toLowerCase(),
+      password: password
     });
     var route = '/tabs/tab2';
 
@@ -183,6 +222,11 @@ export class RegisterPage implements OnInit {
 
       });
       this.isVisible = 'block';
+      this.content?.scrollByPoint(this.width ?? 0, 0, 300);
+
+      setTimeout(() => {
+        this.fn_login(this.txt_email?.value?.toString(), this.txt_pasword?.value?.toString());
+      }, 3000);
     }
   }
 
@@ -201,14 +245,7 @@ export class RegisterPage implements OnInit {
         content.style.height = `${70}vh`;
       }
     });
-  
-    // Keyboard.addListener('keyboardWillHide', () => {
-    //   console.log('El teclado se está cerrando');
-    //   const content = document.querySelector('.register-content') as HTMLElement;
-    //   if (content) {
-    //     content.style.paddingBottom = '0';
-    //   }
-    // });
+
   }
 
 }

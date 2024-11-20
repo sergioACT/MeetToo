@@ -15,6 +15,7 @@ import { Geolocations } from 'src/scripts/geolocation';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page extends TabsPage {
+
   @ViewChild('new_photo_modal') new_photo_modal?: IonModal;
   @ViewChild('action_sheet') action_sheet?: IonActionSheet;
   @ViewChild('txt_phone') txt_phone?: IonInput;
@@ -28,10 +29,11 @@ export class Tab3Page extends TabsPage {
     this.presentingElement = document.querySelector('.comp');
   }
 
-
+  canDismiss() {
+    return true;
+  };
   async open_facebook() {
     try {
-      debugger
       console.log("clickeado");
       var facebook = new Facebook();
       await facebook.loginWithFacebook();
@@ -40,10 +42,6 @@ export class Tab3Page extends TabsPage {
       console.log(ex);
     }
   }
-
-  canDismiss() {
-    return true;
-  };
 
   async open_camera() {
     const image = await Camera.getPhoto({
@@ -131,7 +129,6 @@ export class Tab3Page extends TabsPage {
 
         if (this.user != undefined) {
           this.user.phone = text;
-          debugger
           this.session.update(this.user);
           await this.connection.updateDoc('users', this.user?.id.toString(), { phone: text });
 

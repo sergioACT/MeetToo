@@ -9,7 +9,6 @@ export class Session {
         sessionStorage.setItem(this.key, JSON.stringify(user));
     }
     update(user: any) {
-        debugger
         sessionStorage.clear();
         sessionStorage.setItem(this.key, JSON.stringify(user));
     }

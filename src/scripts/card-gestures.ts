@@ -11,7 +11,7 @@ export class CardGesture extends Gestures {
     no_element: ElementRef;
     card_buttons: ElementRef;
 
-    constructor(private tabPage: Tab2Page,card_buttons: ElementRef, element: ElementRef, status_card: ElementRef, gestureCtrl: GestureController, yes_element: ElementRef, no_element: ElementRef, screen_size: number, allow_deltaX?: boolean, allow_deltaY?: boolean) {
+    constructor(private tabPage: Tab2Page,card_buttons: ElementRef, element: ElementRef, status_card: ElementRef, gestureCtrl: GestureController, yes_element: ElementRef, no_element: ElementRef, screen_size: number, allow_deltaX?: boolean, allow_deltaY?: boolean,private recent_id?: string) {
         super(element, gestureCtrl, screen_size, allow_deltaX, allow_deltaY);
         this.status_card = status_card;
         this.yes_element = yes_element;
@@ -81,7 +81,7 @@ export class CardGesture extends Gestures {
 
         var limit_right = this.screen_size / 2;
         var limit_left = this.screen_size * -1;
-
+debugger
         if (coords.left > limit_right) {
             console.log('entro en el limite')
 
@@ -91,7 +91,7 @@ export class CardGesture extends Gestures {
             (this.element.nativeElement as HTMLElement).classList.add('select-card');
             (this.status_card.nativeElement as HTMLElement).classList.add('status-card');
             (this.card_buttons.nativeElement as HTMLElement).style.display = 'none';
-            await this.tabPage.accept();
+            await this.tabPage.accept(this.recent_id);
 
         }
         else if ((coords.left) < limit_left) {

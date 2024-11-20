@@ -26,7 +26,6 @@ export class UIActions {
             }
                 break;
             case 3: {
-                debugger
                 page.step1?.nativeElement.classList.add("disbaled-content");
                 page.step2?.nativeElement.classList.add("disbaled-content");
                 page.step3?.nativeElement.classList.remove("disbaled-content");

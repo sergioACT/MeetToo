@@ -1,12 +1,22 @@
 @import "../../global.scss";
 
 
+// .profile-setings-card {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     background-color: rgb(208, 208, 208);
+//     background-image: radial-gradient(circle at 1% 2%, hsla(249, 76%, 61%, 0.59) 7%, transparent 84%), radial-gradient(circle at 95% 96%, hsla(271, 98%, 53%, 0.24) 7%, transparent 84%), radial-gradient(circle at 2% 98%, hsla(296, 100%, 51%, 0.25) 7%, transparent 84%);
+//     background-blend-mode: normal, normal, normal;
+//     padding: 10px;
+//     transition: all .3s linear;
+// }
+
 .profile-setings-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: rgb(208, 208, 208);
-    background-image: radial-gradient(circle at 1% 2%, hsla(249, 76%, 61%, 0.59) 7%, transparent 84%), radial-gradient(circle at 95% 96%, hsla(271, 98%, 53%, 0.24) 7%, transparent 84%), radial-gradient(circle at 2% 98%, hsla(296, 100%, 51%, 0.25) 7%, transparent 84%);
+    background-color: rgb(255, 255, 255);
     background-blend-mode: normal, normal, normal;
     padding: 10px;
     transition: all .3s linear;
@@ -106,7 +116,7 @@
 
 .profile-icon {
     font-size: x-large;
-    color: rgb(255, 255, 255);
+    color: #6305dc;
 }
 
 .setting-icon {

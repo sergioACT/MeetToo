@@ -6,6 +6,7 @@
 }
 .recent-avatars
 {
+    
     margin-top: 5px;
 }
 .friend-icons{
@@ -57,6 +58,7 @@
 }
 .firends-search{
     padding-top: 0;
+    padding-bottom: 0;
     --box-shadow: none;
 }
 
@@ -71,3 +73,23 @@
     font-size: small;
 }
 
+.recent-avatars {
+    overflow-x: scroll; /* Permite el scroll horizontal */
+    white-space: nowrap; /* Previene que los elementos se envuelvan */
+    scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none; /* Oculta la barra de desplazamiento en Internet Explorer y Edge */
+  }
+  .scroll-container {
+    display: flex; /* Usa flexbox para alinear los elementos en una fila */
+  }
+  
+ 
+.avatar-icon{
+    border: solid 2px #6305dc;
+    padding: 1px;
+}
+
+.recent-avatar{
+    height: 60px;
+    width: 60px;
+}
