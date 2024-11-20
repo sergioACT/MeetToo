@@ -98,53 +98,14 @@ export class TabsPage {
 
     this.selection_display = 'none';
 
-
   }
 
   async ngOnInit() {
-    debugger
     if (this.user && this.usr) {
       this.fullname = this.usr.get_full_name();
-      if(this.user.friends)
-        this.all_friends = await this.usr.get_friends();
-      this.friends = this.all_friends ?? new Array<IUser>;
-      this.usr.firends = this.all_friends;
       ({all_meetings: this.actual_meetings, meetings: this.meetings} = await this.usr.get_meetings());
-
     }
   } 
-  open_selector() {
-    if (!this.is_open_selector) {
-      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
-      icon.name = "close";
- 
-      this.selection_display = 'block';
-      this.select_tab_display = 'block';
-      this.normal_tab_display = 'none';
-    
-      this.is_open_selector = true;
-
-    }
-    else {
-      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
-
-      icon.name = "ellipsis-horizontal";
-      this.selection_display = 'none';
-      this.select_tab_display = 'none';
-      this.normal_tab_display = 'flex';
-      this.is_open_selector = false;
-    }
-  }
-
-  close_selector() {
-    if (this.is_open_selector) {
-      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
-
-      icon.name = "ellipsis-horizontal";
-      this.selection_display = 'none';
-      this.is_open_selector = false;
-    }
-  }
 
 
   on_checked(event: CustomEvent, tag: string) {

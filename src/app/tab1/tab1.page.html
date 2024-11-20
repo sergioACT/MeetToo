@@ -43,7 +43,7 @@
 
           <div class="selected-avatar" style="display: flex;">
             <div #check_user class="check-user" style="margin-right:10px ;" [style.Display]="selection_display">
-              <ion-checkbox id="{{friend.id}}" required="true" #terms_and_conditions
+              <ion-checkbox id="{{friend.id}}" required="true" 
                 class="register-checkbox"></ion-checkbox>
             </div>
             <div style="width: 70px;">
@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <div class="friend-data">
+          <div class="friend-data flex-column-center">
             <ion-label id="friend-name" class="friend-name">{{friend.first_name}}</ion-label>
             <ion-label *ngIf="friend.visible_preferences" id="friend-description"
               class="friend-description">{{friend.preferences}}</ion-label>

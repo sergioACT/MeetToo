@@ -15,6 +15,8 @@ export interface IUser {
     friends: String[];
     latitude: number;
     longitude: number;
+
+    full_name: string;
   }
 
   export interface social_media{

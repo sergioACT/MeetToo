@@ -47,12 +47,11 @@ export class Tab1Page extends TabsPage {
 
 
   async ionViewWillEnter() {
-    debugger
     if (this.user && this.usr)
       if (this.user.friends)
         this.all_friends = await this.usr.get_friends();
-    this.friends = this.all_friends ?? new Array<IUser>;  
-  
+    this.friends = this.all_friends ?? new Array<IUser>;
+
   }
   open_app(user_name: string, app: string) {
     var url = "";
@@ -81,16 +80,55 @@ export class Tab1Page extends TabsPage {
     this.router.navigate(["/tabs/tab2", recent_id]);
   }
 
-  select(friendid: String) {
-    console.log(friendid);
+  open_selector() {
+    if (!this.is_open_selector) {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
+      icon.name = "close";
 
-    const checkbox = document.getElementById(friendid.toString()) as HTMLIonCheckboxElement;
-    if (checkbox) {
-      checkbox.checked = true; // Selecciona el checkbox
+      this.selection_display = 'block';
+      this.select_tab_display = 'block';
+      this.normal_tab_display = 'none';
+
+      this.is_open_selector = true;
+
     }
-    this.selecteds?.push(friendid);
+    else {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
 
-    if (this.friends_title)
-      this.friends_title.textContent = this.selecteds?.length + " Seleccionados";
+      icon.name = "ellipsis-horizontal";
+      this.selection_display = 'none';
+      this.select_tab_display = 'none';
+      this.normal_tab_display = 'flex';
+      this.is_open_selector = false;
+    }
+  }
+
+  close_selector() {
+    if (this.is_open_selector) {
+      const icon = document.getElementById("popover-button") as HTMLIonIconElement;
+
+      icon.name = "ellipsis-horizontal";
+      this.selection_display = 'none';
+      this.is_open_selector = false;
+    }
+  }
+
+  select(friendid: String) {
+    if (this.is_open_selector) {
+      console.log(friendid);
+      debugger
+      const checkbox = document.getElementById(friendid.toString()) as HTMLIonCheckboxElement;
+      if (checkbox) {
+        if (checkbox.checked)
+          checkbox.checked = false;
+        else checkbox.checked = true; // Selecciona el checkbox
+
+      }
+
+      this.selecteds?.push(friendid);
+
+      if (this.friends_title)
+        this.friends_title.textContent = this.selecteds?.length + " Seleccionados"; 
+    }
   }
 }

@@ -9,6 +9,13 @@
     
     margin-top: 5px;
 }
+
+.flex-column-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .friend-icons{
     position: fixed;
     right: 0;
