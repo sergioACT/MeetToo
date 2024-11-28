@@ -1,0 +1,17 @@
+<ion-item *ngIf="media" (click)="open()" [button]="true" lines="none">
+  <div class="flex-row-sb content">
+    <div class="flex-row-left">
+      <div class="flex-column-center social-icon-content">
+        <ion-icon class="setting-icon" slot="start" name="{{icon_name}}" size="medium"></ion-icon>
+      </div>
+      <div class="flex-column-center">
+        <ion-label>{{media.media_key}}</ion-label>
+      </div>
+    </div>
+    <div class="flex-column-center">
+      <ion-label [style.display]="display_label">{{media.media_value != undefined ? media.media_value : ''}}</ion-label>
+      <ion-input [style.display]="display_input" (ionInput)="update_number($event)" style="text-align: end;"
+        required="true" #txt_phone placeholder="{{media.media_value != undefined ?media.media_value : ''}}"></ion-input>
+    </div>
+  </div>
+</ion-item>

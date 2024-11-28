@@ -1,0 +1,17 @@
+<div #recent_card class="card-content">
+  <ion-card [style.BackgroundImage]="recent_photo" class="card">
+    <label #no class="card-baded no">ADIOS</label>
+    <label #yes class="card-baded yes">HOLA</label>
+
+    <div class="card-container" *ngIf="recent_user">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-name">{{recent_user.nick_name}}</ion-card-title>
+        <ion-card-subtitle style="color:  white;">{{recent_full_name}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{recent_user.preferences}}
+      </ion-card-content>
+
+    </div>
+  </ion-card>
+</div>

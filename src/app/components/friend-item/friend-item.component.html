@@ -1,0 +1,35 @@
+<ion-item-sliding class="friend-item"  (ionSwipe)="open()">
+
+  <ion-item *ngIf="friend" lines="none">
+
+    <div class="friend-profile">
+      <div style="margin-right:10px ;" [style.Display]="selected">
+        <ion-checkbox id="{{friend.id}}" required="true" class="register-checkbox"></ion-checkbox>
+      </div>
+      <div style="width: 70px;">
+        <ion-avatar class="friend-avatar" aria-hidden="true" slot="start">
+          <img [src]="friend.photo ? friend.photo : './assets/images/no-user.png'" class="friend—image-profile" />
+        </ion-avatar>
+      </div>
+    </div>
+
+    <div class="friend-data flex-column-center">
+      <ion-label id="friend-name" class="friend-name">{{full_name}}</ion-label>
+      <ion-label *ngIf="friend.visible_preferences" class="friend-description">{{friend.preferences}}</ion-label>
+    </div>
+
+    <div class="friend-icons">
+    </div>
+
+  </ion-item>
+  <ion-item-options side="end">
+
+
+    <ion-item-option color="medium">
+      Más
+    </ion-item-option>
+    <ion-item-option color="primary" (click)="open()">
+      Contactar
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>

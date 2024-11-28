@@ -53,28 +53,6 @@ export class Tab1Page extends TabsPage {
     this.friends = this.all_friends ?? new Array<IUser>;
 
   }
-  open_app(user_name: string, app: string) {
-    var url = "";
-    switch (app) {
-      case "fb":
-        url = "https://m.me/" + user_name;
-        break;
-      case "wh":
-        url = "https://wa.me/" + user_name;
-        break;
-      case "ig":
-        url = "https://ig.me/" + user_name;
-        break;
-      case "ph":
-        url = "tel:" + user_name;
-        break;
-      case "x":
-        url = "https://x.com/messages/compose?recipient_id=" + user_name;
-        break;
-
-    }
-    Browser.open({ url });
-  }
 
   open_recent(recent_id: String) {
     this.router.navigate(["/tabs/tab2", recent_id]);
@@ -90,7 +68,6 @@ export class Tab1Page extends TabsPage {
       this.normal_tab_display = 'none';
 
       this.is_open_selector = true;
-
     }
     else {
       const icon = document.getElementById("popover-button") as HTMLIonIconElement;
@@ -100,6 +77,8 @@ export class Tab1Page extends TabsPage {
       this.select_tab_display = 'none';
       this.normal_tab_display = 'flex';
       this.is_open_selector = false;
+      this.is_select_mode = false;
+
     }
   }
 
@@ -110,13 +89,13 @@ export class Tab1Page extends TabsPage {
       icon.name = "ellipsis-horizontal";
       this.selection_display = 'none';
       this.is_open_selector = false;
+      this.is_select_mode = false;
     }
   }
 
   select(friendid: String) {
     if (this.is_open_selector) {
       console.log(friendid);
-      debugger
       const checkbox = document.getElementById(friendid.toString()) as HTMLIonCheckboxElement;
       if (checkbox) {
         if (checkbox.checked)

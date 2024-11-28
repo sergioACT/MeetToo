@@ -101,8 +101,7 @@ export class RegisterPage implements OnInit {
   }
 
   next(section: number) {
-    this.step1?.nativeElement.classList.add("disbaled-content");
-    this.step2?.nativeElement.classList.add("disbaled-content");
+     this.step2?.nativeElement.classList.add("disbaled-content");
     this.step3?.nativeElement.classList.add("disbaled-content");
     this.step4?.nativeElement.classList.add("disbaled-content");
 

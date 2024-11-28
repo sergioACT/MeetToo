@@ -1,0 +1,42 @@
+.card-content {
+    height: 85%;
+    padding-top: 10%;
+}
+
+.card-baded {
+    border: 5px solid;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: xxx-large;
+    position: absolute;
+    margin-top: 40px;
+}
+
+.no {
+    color: red;
+    margin-right: 10px;
+    rotate: 30deg;
+    opacity: 0%;
+    right: 0;
+}
+
+.yes {
+    color: green;
+    margin-left: 10px;
+    rotate: -30deg;
+    left: 0;
+    opacity: 0%;
+}
+.card-container {
+  position: fixed;
+  bottom: 0;
+}
+
+
+.card-name {
+    text-transform: capitalize;
+    color: white;
+    font-weight: bold;
+  }
+  
+  

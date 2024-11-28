@@ -8,22 +8,17 @@ export interface IUser {
     phone: String;
     photo: string;
     preferences: String; //description
-    social_media: Array<social_media>;
+    social_media: Array<ISocial>;
     visible_media: Boolean;
     visible_preferences: Boolean;
     complete_profile: Boolean;
     friends: String[];
     latitude: number;
     longitude: number;
-
     full_name: string;
   }
 
-  export interface social_media{
-    facebook: string;
-    instagram: string;
-    whatsapp: string;
-    x: string;
-    snapchat: string;
-
+  export interface ISocial{
+    media_key:string;
+    media_value: string;
   }

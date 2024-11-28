@@ -36,7 +36,7 @@ export class TabsPage {
   description_display = 'block'
   logout_button_display = 'flex'
   description_display_large = 'none'
-  icon_name = 'log-in-outline';
+  icon_name = '';
   tab1_icon_name = 'people-outline';
   tab2_icon_name = 'footsteps-outline';
   tab3_icon_name = 'accessibility-outline';
@@ -53,7 +53,7 @@ export class TabsPage {
   link_x: string = "";
 
   is_open_selector?: boolean = false;
-
+  is_select_mode?: boolean = false;
   select_tab_display = 'none';
   normal_tab_display = 'flex';
   selection_display = 'none';
@@ -103,9 +103,9 @@ export class TabsPage {
   async ngOnInit() {
     if (this.user && this.usr) {
       this.fullname = this.usr.get_full_name();
-      ({all_meetings: this.actual_meetings, meetings: this.meetings} = await this.usr.get_meetings());
+      ({ all_meetings: this.actual_meetings, meetings: this.meetings } = await this.usr.get_meetings());
     }
-  } 
+  }
 
 
   on_checked(event: CustomEvent, tag: string) {
@@ -157,16 +157,6 @@ export class TabsPage {
 
       if (friend?.visible_media)
         this.friend_visble_media = 'block'
-
-      if (friend != undefined) {
-        if (friend.social_media != undefined) {
-          this.link_f = friend.social_media[0].facebook;
-          this.link_i = friend.social_media[0].instagram;
-          this.link_x = friend.social_media[0].snapchat;
-          this.link_w = friend.phone.toString();
-          this.link_p = friend.phone.toString();
-        }
-      }
 
     }
     else {

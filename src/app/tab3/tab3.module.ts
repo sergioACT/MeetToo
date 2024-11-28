@@ -6,6 +6,9 @@ import { Tab3Page } from './tab3.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
+import { SocialMediaItemComponent } from '../components/profile-components/social-media-item/social-media-item.component';
+import { HeaderIconComponent } from '../components/header-icon/header-icon.component';
+import { HeaderIconModule } from '../components/header-icon/header-icon.module';
 
 @NgModule({
   imports: [
@@ -13,8 +16,9 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab3PageRoutingModule
+    Tab3PageRoutingModule,
+    HeaderIconModule
   ],
-  declarations: [Tab3Page]
+  declarations: [Tab3Page, SocialMediaItemComponent]
 })
 export class Tab3PageModule {}

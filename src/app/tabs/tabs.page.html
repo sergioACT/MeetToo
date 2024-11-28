@@ -1,6 +1,6 @@
 <ion-tabs #tabs class="safe-area">
 
-  <ion-tab-bar [style.display]="normal_tab_display" class="tab-bar" slot="bottom">
+  <ion-tab-bar *ngIf="!is_select_mode" class="tab-bar" slot="bottom">
     <ion-tab-button class="tab-button" tab="tab1" href="/tabs/tab1">
       <ion-icon class="tab-icon" aria-hidden="true" name="{{tab1_icon_name}}"></ion-icon>
     </ion-tab-button>
@@ -16,7 +16,7 @@
     </ion-tab-button>
   </ion-tab-bar>
 
-  <ion-tab-bar [style.display]="select_tab_display" class="tab-bar" slot="bottom">
+  <ion-tab-bar *ngIf="is_select_mode" class="tab-bar" slot="bottom">
     <ion-tab-button class="tab-button" tab="tab1" href="/tabs/tab1">
       <ion-label>Eliminar</ion-label>
     </ion-tab-button>

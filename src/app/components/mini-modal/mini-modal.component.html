@@ -1,0 +1,16 @@
+<div style="padding: 20px">
+
+
+  <div class="chat-icons" *ngIf="visible">
+    <div class="modal-chat-header" style="font-size: large;">
+      Contactar por
+    </div>
+    <ion-icon *ngFor="let icon of icons" class="friend-icon" size="large" [name]="icon.name"
+      (click)="open_app(icon.link)">
+    </ion-icon>
+  </div>
+  <div class="chat-icons" *ngIf="!visible">
+    <label>shhhhhhh!</label>
+    <h1>Este perfil es privado</h1>
+  </div>
+</div>

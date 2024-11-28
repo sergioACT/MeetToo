@@ -34,7 +34,6 @@ export class Tab3Page extends TabsPage {
   };
   async open_facebook() {
     try {
-      console.log("clickeado");
       var facebook = new Facebook();
       await facebook.loginWithFacebook();
     }

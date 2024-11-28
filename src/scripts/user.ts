@@ -23,7 +23,6 @@ export class User {
     return friend.first_name + " " + friend.last_name;
   }
   async get_meetings() {
-    debugger
     let connections = await this.connection?.getDoc('meetings', this.user?.id.toString()) as Object;
 
     let meetings = connections as Meetings;
@@ -47,15 +46,14 @@ export class User {
     return { all_meetings, meetings };
   }
 
-
   async get_friends() {
     let finall_friends = new Array;
     if (this.user) {
+      this.user.friends = this.user?.friends.filter(x => x != "");
       this.user.friends.forEach(friend => {
         if (!finall_friends.includes(friend))
           finall_friends.push(friend);
       });
-      this.user.friends = this.user?.friends.filter(x => x != "");
 
     }
 

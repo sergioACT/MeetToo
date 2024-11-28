@@ -15,22 +15,23 @@ export class HeaderIconComponent implements OnInit {
 
   is_open_selector?: boolean;
 
+
   @ViewChild('pop_over') pop_over?: IonPopover;
   @ViewChild('alert') _alert?: IonAlert;
 
   public alertButtons = [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-      },
-    },
     {
       text: 'OK',
       role: 'confirm',
       handler: () => {
         this.log_out(); // Llamar al método desde aquí
       }
+    },
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+      },
     },
   ];
   constructor(private router: Router) { }
@@ -64,6 +65,7 @@ export class HeaderIconComponent implements OnInit {
     else {
       this.itemSelected.emit();
       this.is_open_selector = false;
+
     } // Emitir el evento cuando se selecciona el ítem
 
   }

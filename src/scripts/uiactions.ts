@@ -89,7 +89,7 @@ export class UIActions {
         tabs.description_display = 'block';
         tabs.logout_button_display = 'flex';
         tabs.description_display_large = 'none'
-        tabs.icon_name = 'log-in-outline';
+        tabs.icon_name = 'none';
         tabs.is_open = false;
     }
 }
